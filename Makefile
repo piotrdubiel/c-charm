@@ -1,7 +1,7 @@
 CC=g++
 
-OBJS=main.o node.o dataset.o charm.o rule.o utils.o
-HEADERS=node.h dataset.h charm.h rule.h utils.h
+OBJS=main.o graph.o dataset.o charm.o rule.o utils.o
+HEADERS=graph.h dataset.h charm.h rule.h utils.h
 
 all: $(OBJS) 	
 	$(CC) $(OBJS) -o charm

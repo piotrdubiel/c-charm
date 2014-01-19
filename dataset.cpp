@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <algorithm>
 
 #include "utils.h"
 
@@ -11,18 +12,19 @@ DataSet::DataSet(ifstream & header, ifstream & input_file) {
     read_header(header);
 
     cout << "Creating dataset from file..." << endl;
-    //read_data(input_file);
+    read_data(input_file);
 }
 
 void DataSet::print_identifiers() const {
-    map<pair<int,string>,int> >::const_iterator it;
+    cout << "HEADER" << endl;
+    map<pair<int,string>,int>::const_iterator it;
     for (it=identifier_map.begin(); it != identifier_map.end(); ++it) {
-        cout << it->first.first << "-" << it->first.second << " => " << at->second << endl;
+        cout << it->first.first << "-" << it->first.second << " => " << it->second << endl;
     }
 }
 
 void DataSet::print() const {
-    list<vector<int> >::const_iterator it;
+    vector<vector<int> >::const_iterator it;
     for (it=transactions.begin(); it != transactions.end(); ++it) {
         vector<int>::const_iterator at;
         for (at=it->begin(); at != it->end(); ++at) {
@@ -37,36 +39,51 @@ void DataSet::read_header(ifstream & header) {
     int current_identifier = 0;
     int current_attribute = 0;
 
+
+    vector<string> lines;
+
     while (getline(header,line)) {
         if (line[0] == '|' || line == "") continue;
-        cout << line << endl;
-        map<string,int> attribute_map;
+        lines.push_back(line);
+    }
+
+    vector<string>::iterator ll;
+    for (ll=lines.begin(); ll != lines.end(); ++ll) {
+        string line = *ll;
+        vector<string> tokens;
         if (line.find(':') != std::string::npos) {
-        }
-        else {
-            vector<string> tokens = Utils::split(line, ', ');
+            tokens = Utils::split(line.substr(line.find_first_of(':') + 1), ' ');
+
             vector<string>::iterator it;
-
             for (it=tokens.begin(); it != tokens.end(); ++it) {
-
-
-                if (attribute_map.insert(pair<string,int>(*it,current_identifier)).second) {
+                if (*it == "") continue;
+                // cut the last character
+                it->erase(--it->end(), it->end());
+                if (identifier_map.insert(
+                            pair<pair<int,string>, int>(
+                                pair<int, string>(current_attribute, Utils::trim(*it)),
+                                current_identifier)
+                            ).second) {
                     current_identifier++;
                 }
-                attributes.push_back(identifier_map[*it]);
-
-
-                pair<string, string> key;
-
-
             }
-            if (identifier_map.insert(pair<string,int>(*it,current_identifier)).second) {
-                current_identifier++;
+            current_attribute++;
+        }
+        else {
+            tokens = Utils::split(line, ',');
+            vector<string>::iterator it;
+            for (it=tokens.begin(); it != tokens.end(); ++it) {
+                if (identifier_map.insert(
+                            pair<pair<int,string>, int>(
+                                pair<int, string>(lines.size() - 1, Utils::trim(*it)),
+                                current_identifier)
+                            ).second) {
+                    current_identifier++;
+                }
             }
         }
-        identifier_map.push_back(attribute_map);
-        header.close();
     }
+    header.close();
 }
 
 void DataSet::read_data(ifstream & input_file) {
@@ -75,9 +92,49 @@ void DataSet::read_data(ifstream & input_file) {
         vector<string> tokens = Utils::split(line, ',');
         vector<int> attributes;
         for (int i = 0; i < tokens.size(); ++i) {
-            attributes.push_back(identifier_map[i][tokens[i]]);
+            pair<int,string> element(i, Utils::trim(tokens[i]));
+            if (identifier_map.count(element) == 0) throw "Value not found";
+            attributes.push_back(identifier_map[element]);
         }
         transactions.push_back(attributes);
     }
     input_file.close();
+}
+
+int DataSet::support(int id) const {
+    int sup = 0;
+    vector<vector<int> >::const_iterator it;
+    for (it=transactions.begin(); it != transactions.end(); ++it) {
+        if (find(it->begin(), it->end(), id) != it->end()) {
+            sup++;
+        }
+    }
+    return sup;
+}
+
+vector<int> DataSet::get_transactions(set<int> identifiers) const {
+    vector<int> tids;
+    for (int i = 0; i < transactions.size(); ++i) {
+        set<int>::const_iterator is;
+        for (is=identifiers.begin(); is!=identifiers.end(); ++is) {
+            if (find(transactions[i].begin(), transactions[i].end(), *is) != transactions[i].end()) {
+                tids.push_back(i);
+            }
+        }
+    }
+    return tids;
+}
+
+
+vector<int> DataSet::get_identifiers() const {
+    vector<int> identifiers;
+    map<pair<int,string>, int>::const_iterator it;
+    for (it=identifier_map.begin(); it != identifier_map.end(); ++it) {
+        identifiers.push_back(it->second);
+    }
+    return identifiers;
+}
+
+vector<int> DataSet::get_transaction(int id) const {
+    return transactions[id];
 }

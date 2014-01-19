@@ -4,24 +4,25 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <list>
 #include <vector>
 #include <map>
+#include <set>
 
 using namespace std;
 
 class DataSet {
     map<pair<int,string>,int> identifier_map;
-    list<vector<int> > transactions;
+    vector<vector<int> > transactions;
 
 
     void read_header(ifstream &);
     void read_data(ifstream &);
 public:
     DataSet(ifstream &, ifstream &);
-    int support(int id);
-
-
+    int support(int id) const;
+    vector<int> get_transactions(set<int> identifiers) const;
+    vector<int> get_transaction(int id) const;
+    vector<int> get_identifiers() const;
     void print_identifiers() const;
     void print() const;
 };
