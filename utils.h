@@ -3,13 +3,17 @@
 
 #include <vector>
 #include <string>
+#include <set>
+
+using namespace std;
 
 class Utils {
 public:
-    static std::vector<std::string> split(const std::string &, char);
-    static std::string& rtrim(std::string &);
-    static std::string& ltrim(std::string &);
-    static std::string& trim(std::string &);
+    static vector<std::string> split(const string &, char);
+    static string& rtrim(string &);
+    static string& ltrim(string &);
+    static string& trim(string &);
+    template<class T> static vector<T> unionv(vector<T>, vector<T>);
 };
 
 #endif

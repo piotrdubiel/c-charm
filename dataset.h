@@ -6,7 +6,6 @@
 #include <string>
 #include <vector>
 #include <map>
-#include <set>
 
 using namespace std;
 
@@ -20,9 +19,9 @@ class DataSet {
 public:
     DataSet(ifstream &, ifstream &);
     int support(int id) const;
-    vector<int> get_transactions(set<int> identifiers) const;
+    vector<int> get_tids(vector<int> identifiers) const;
     vector<int> get_transaction(int id) const;
-    vector<int> get_identifiers() const;
+    vector<int> get_identifiers(int) const;
     void print_identifiers() const;
     void print() const;
 };

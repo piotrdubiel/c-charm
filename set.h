@@ -6,11 +6,11 @@
 using namespace std;
 
 class Set {
-private:
+public:
     vector<int> & identifiers;
     vector<int> & transactions;
 
-public:
+    Set(vector<int>, vector<int>);
 };
 
 #endif

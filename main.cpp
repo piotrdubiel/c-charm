@@ -4,18 +4,18 @@
 #include <string>
 #include "dataset.h"
 #include "charm.h"
+#include "utils.h"
 
 using namespace std;
 
 int main() {
-    ifstream car_file("car.data");
+    ifstream car_file("car.test");
     ifstream car_header("car.names");
     DataSet d(car_header, car_file);
     d.print_identifiers();
 
-    set<int> ids;
-    ids.insert(1);
-    vector<int> tids = d.get_identifiers();//d->get_transactions(ids);
+    vector<int> tids = d.get_tids(vector<int>());//d->get_transactions(ids);
+    vector<int> ids = d.get_identifiers(6);
     for (vector<int>::iterator it=tids.begin(); it != tids.end(); ++it) {
         cout << *it << " ";
     }

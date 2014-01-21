@@ -6,6 +6,7 @@
 #include "dataset.h"
 #include "rule.h"
 #include "graph.h"
+#include "set.h"
 
 using namespace std;
 
@@ -13,15 +14,20 @@ class Charm {
 
 public:
     Charm(const DataSet &, int);
+    ~Charm();
     list<Rule> get_rules(const DataSet &);
     void get_close_sets(int);
 
 private:
     const DataSet & data_set; 
     int class_identifier;
+    vector<Set*> close_sets;
     Graph * graph;
+    int min_sup;
 
-
+    Node* create_node(vector<int> items);
+    void extend(Node*);
+    Node* property(Node*, Node*);
 };
 
 #endif

@@ -112,25 +112,29 @@ int DataSet::support(int id) const {
     return sup;
 }
 
-vector<int> DataSet::get_transactions(set<int> identifiers) const {
+vector<int> DataSet::get_tids(vector<int> identifiers) const {
     vector<int> tids;
     for (int i = 0; i < transactions.size(); ++i) {
-        set<int>::const_iterator is;
-        for (is=identifiers.begin(); is!=identifiers.end(); ++is) {
-            if (find(transactions[i].begin(), transactions[i].end(), *is) != transactions[i].end()) {
-                tids.push_back(i);
+        if (identifiers.empty()) tids.push_back(i);
+        else {
+            vector<int>::const_iterator is;
+            for (is=identifiers.begin(); is!=identifiers.end(); ++is) {
+                if (find(transactions[i].begin(), transactions[i].end(), *is) != transactions[i].end()) {
+                    tids.push_back(i);
+                }
             }
         }
     }
     return tids;
 }
 
-
-vector<int> DataSet::get_identifiers() const {
+vector<int> DataSet::get_identifiers(int class_id) const {
     vector<int> identifiers;
     map<pair<int,string>, int>::const_iterator it;
     for (it=identifier_map.begin(); it != identifier_map.end(); ++it) {
-        identifiers.push_back(it->second);
+        if (it->first.first != class_id) {
+            identifiers.push_back(it->second);
+        }
     }
     return identifiers;
 }
