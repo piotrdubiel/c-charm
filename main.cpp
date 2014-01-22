@@ -5,6 +5,7 @@
 #include "dataset.h"
 #include "charm.h"
 #include "utils.h"
+#include "set.h"
 
 using namespace std;
 
@@ -16,7 +17,21 @@ int main() {
 
 
     Charm charm(d, 4);
-    charm.get_close_sets(0);
+
+    vector<Set*> sets = charm.get_close_sets(0);
+    return 0;
+    vector<Set*>::iterator it;
+    for (it=sets.begin(); it != sets.end(); ++it) {
+        vector<int>::iterator i;
+        for (i=(*it)->identifiers.begin(); i!=(*it)->identifiers.end(); ++i) {
+            cout << *i << " ";
+        }
+        cout << "\tSingle class: " << (*it)->single_class << "\t   Class: " << (*it)->first_class_id << endl;
+        delete *it;
+    }
+
+    cout << d.remap(0).second << endl;
+
 
     return 0;
 }

@@ -146,3 +146,7 @@ vector<int> DataSet::get_identifiers(int class_id) const {
 vector<int> DataSet::get_transaction(int id) const {
     return transactions[id];
 }
+
+
+pair<int, string> DataSet::remap(int id) const {
+}

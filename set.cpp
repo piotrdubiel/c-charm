@@ -9,6 +9,15 @@ Set::Set(vector<int> i, vector<int> t) {
 	sort(transactions.begin(), transactions.end());
 }
 
+Set::Set(const Set& ref) {
+    identifiers = ref.identifiers;
+	sort(identifiers.begin(), identifiers.end());
+    transactions = ref.transactions;
+	sort(transactions.begin(), transactions.end());
+    first_class_id = ref.first_class_id;
+    single_class = ref.single_class;
+}
+
 bool Set::is_subset_of(const Set& other) {
 	vector<int> temporary;
 	set_difference(transactions.begin(), transactions.end(), other.transactions.begin(), other.transactions.end(), back_inserter(temporary));

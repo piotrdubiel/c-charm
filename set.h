@@ -10,7 +10,11 @@ public:
     vector<int> identifiers;
     vector<int> transactions;
 
+    int first_class_id;
+    bool single_class;
+
     Set(vector<int>, vector<int>);
+    Set(const Set&);
 
 	bool is_subset_of(const Set&);
 

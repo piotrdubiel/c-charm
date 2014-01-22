@@ -14,9 +14,6 @@ public:
     Node* parent;
     vector<Node*> children;
 
-    int first_class_id;
-    bool single_class;
-
     Node(Set*);
     ~Node();
     void set_parent(Node* parent);

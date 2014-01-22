@@ -15,7 +15,7 @@ Charm::~Charm() {
     delete graph;
 }
 
-void Charm::get_close_sets(int min_sup) {
+vector<Set*> Charm::get_close_sets(int min_sup) {
     this->min_sup = min_sup;
     graph = new Graph();
 
@@ -30,6 +30,7 @@ void Charm::get_close_sets(int min_sup) {
     }
 
     extend(graph->root);
+    return hashes.content();
 }
 
 
@@ -49,8 +50,8 @@ Node* Charm::create_node(vector<int> items) {
                 break;
             }
         }
-        node->first_class_id = first_class;
-        node->single_class = single_class;
+        node->set->first_class_id = first_class;
+        node->set->single_class = single_class;
         cout << "Node with class " << first_class << " has single class " << single_class << endl;
         return node;
     }
@@ -74,8 +75,8 @@ Node* Charm::create_node(Set * set) {
                 break;
             }
         }
-        node->first_class_id = first_class;
-        node->single_class = single_class;
+        node->set->first_class_id = first_class;
+        node->set->single_class = single_class;
         cout << "Node with class " << first_class << " has single class " << single_class << endl;
         return node;
     }
@@ -89,6 +90,7 @@ void Charm::extend(Node * parent) {
     vector<Node*>::iterator it;
     for (it=parent->children.begin(); it!=parent->children.end(); ++it) {
         vector<Node*>::iterator j;
+        vector<Node*> to_delete;
         for (j=it; j!=parent->children.end(); ++j) {
 			if (it == j) continue;
             vector<int> items;
@@ -110,33 +112,43 @@ void Charm::extend(Node * parent) {
                 Node * candidate = create_node(set);
 
 				if (candidate != NULL) {
-					check_property(*it, *j, candidate);
+					Node * d = check_property(*it, *j, candidate);
+                    if (d != NULL) {
+                        to_delete.push_back(d);
+                    }
 				}
             }
+        }
+
+        vector<Node*>::iterator deleter;
+        for (deleter=to_delete.begin(); deleter!=to_delete.end(); ++deleter) {
+            graph->delete_node(*deleter);
         }
 
 		if (!(*it)->children.empty()) {
 			extend(*it);	
 		}
-		//delete (*it)->set;
+        hashes.insert((*it)->set);
     }
+    delete parent->set;
 }
 
-void Charm::check_property(Node * a, Node * b, Node* candidate) {
+Node* Charm::check_property(Node * a, Node * b, Node* candidate) {
 	if (a->set == b->set) {
-		graph->delete_node(b);
 		a->set->identifiers = candidate->set->identifiers;
 		delete candidate;
+        return b;
 	}
 	else if (a->set->is_subset_of(*b->set)) {
 		a->set->identifiers = candidate->set->identifiers;
 		delete candidate;
 	}
 	else if (b->set->is_subset_of(*a->set)) {
-		graph->delete_node(b);
 		graph->add_node(candidate, a);
+        return b;
 	}
 	else {
 		graph->add_node(candidate, a);
 	}
+    return NULL;
 }

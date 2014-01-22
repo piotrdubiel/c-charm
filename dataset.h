@@ -24,6 +24,8 @@ public:
     vector<int> get_identifiers(int) const;
     void print_identifiers() const;
     void print() const;
+
+    pair<int, string> remap(int id) const;
 };
 
 #endif

@@ -7,6 +7,7 @@
 #include "rule.h"
 #include "graph.h"
 #include "set.h"
+#include "hashtable.h"
 
 using namespace std;
 
@@ -16,19 +17,20 @@ public:
     Charm(const DataSet &, int);
     ~Charm();
     list<Rule> get_rules(const DataSet &);
-    void get_close_sets(int);
+    vector<Set*> get_close_sets(int);
 
 private:
     const DataSet & data_set; 
     int class_identifier;
-    vector<Set*> close_sets;
     Graph * graph;
     int min_sup;
+
+    HashTable hashes;
 
     Node* create_node(vector<int> items);
 	Node* create_node(Set *);
     void extend(Node*);
-    void check_property(Node*, Node*, Node*);
+    Node* check_property(Node*, Node*, Node*);
 };
 
 #endif
