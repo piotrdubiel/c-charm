@@ -1,0 +1,12 @@
+| names file (C4.5 format) for car evaluation domain
+
+| class values
+
+P, N
+
+| attributes
+
+0: S.
+1: M.
+2: H.
+3: T.

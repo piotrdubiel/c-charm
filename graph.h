@@ -31,5 +31,6 @@ public:
     Graph(): root(NULL) {};
     ~Graph() { delete root; };
     void add_node(Node *, Node *);
+	void delete_node(Node*);
 };
 #endif

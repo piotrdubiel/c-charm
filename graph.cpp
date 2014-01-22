@@ -2,6 +2,7 @@
 
 #include <cmath>
 #include <iostream>
+#include <algorithm>
 
 Node::Node(Set * s): set(s)
 {
@@ -34,4 +35,11 @@ void Graph::add_node(Node * node, Node * parent) {
         node->set_parent(parent);
         parent->add_child(node);
     }
+}
+
+void Graph::delete_node(Node* node) {
+	vector<Node*> & children = node->parent->children;
+	children.erase(find(children.begin(), children.end(), node));
+	node->parent = NULL;
+	delete node;
 }

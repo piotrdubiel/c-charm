@@ -43,7 +43,7 @@ void DataSet::read_header(ifstream & header) {
     vector<string> lines;
 
     while (getline(header,line)) {
-        if (line[0] == '|' || line == "") continue;
+        if (line == "" || line[0] == '|') continue;
         lines.push_back(line);
     }
 
@@ -93,8 +93,12 @@ void DataSet::read_data(ifstream & input_file) {
         vector<int> attributes;
         for (int i = 0; i < tokens.size(); ++i) {
             pair<int,string> element(i, Utils::trim(tokens[i]));
-            if (identifier_map.count(element) == 0) throw "Value not found";
-            attributes.push_back(identifier_map[element]);
+            if (identifier_map.count(element) == 0) {
+				attributes.push_back(-1);
+			}
+			else {
+				attributes.push_back(identifier_map[element]);
+			}
         }
         transactions.push_back(attributes);
     }

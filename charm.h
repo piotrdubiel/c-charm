@@ -26,8 +26,9 @@ private:
     int min_sup;
 
     Node* create_node(vector<int> items);
+	Node* create_node(Set *);
     void extend(Node*);
-    Node* property(Node*, Node*);
+    void check_property(Node*, Node*, Node*);
 };
 
 #endif
