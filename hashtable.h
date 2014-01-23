@@ -16,12 +16,12 @@ using namespace std;
 
 class HashTable {
 private:
-    map<int, list<Set *> > hash_map;
+    map<int, list<Set*> > hash_map;
     vector<Set*> tmp;
 
 public:
     void insert(Set*);
-    vector<Set*> content();
+    vector<Set*> content() const;
 };
 
 #endif

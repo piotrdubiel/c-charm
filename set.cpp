@@ -27,3 +27,13 @@ bool Set::is_subset_of(const Set& other) {
 bool Set::operator==(const Set& other) {
 	return transactions.size() == other.transactions.size() && equal(transactions.begin(), transactions.end(), other.transactions.begin());
 }
+
+bool Set::is_subsumed(const Set& other) {
+	vector<int> temporary;
+	set_difference(identifiers.begin(), identifiers.end(), other.identifiers.begin(), other.identifiers.end(), back_inserter(temporary));
+	return temporary.empty();
+}
+
+int Set::support() const {
+    return transactions.size();
+}

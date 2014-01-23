@@ -18,7 +18,10 @@ public:
 
 	bool is_subset_of(const Set&);
 
+    bool is_subsumed(const Set&);
 	bool operator==(const Set&);
+
+    int support() const;
 };
 
 #endif

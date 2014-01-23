@@ -10,28 +10,27 @@
 using namespace std;
 
 int main() {
-    ifstream car_file("test.data");
-    ifstream car_header("test.names");
+    ifstream car_file("car.data");
+    ifstream car_header("car.names");
     DataSet d(car_header, car_file);
     d.print_identifiers();
 
 
-    Charm charm(d, 4);
+    Charm charm(d, 6);
 
     vector<Set*> sets = charm.get_close_sets(0);
-    return 0;
     vector<Set*>::iterator it;
     for (it=sets.begin(); it != sets.end(); ++it) {
         vector<int>::iterator i;
-        for (i=(*it)->identifiers.begin(); i!=(*it)->identifiers.end(); ++i) {
-            cout << *i << " ";
+        if ((*it)->single_class) {
+            for (i=(*it)->identifiers.begin(); i!=(*it)->identifiers.end(); ++i) {
+                cout << d.remap(*i).second << " ";
+            }
+            //cout << "\t\t\tSingle class: " << (*it)->single_class << "\t   Class: " << d.remap((*it)->first_class_id).second << endl;
+            cout <<  "\t\t Class: " << d.remap((*it)->first_class_id).second << endl;
+            //delete *it;
         }
-        cout << "\tSingle class: " << (*it)->single_class << "\t   Class: " << (*it)->first_class_id << endl;
-        delete *it;
     }
-
-    cout << d.remap(0).second << endl;
-
 
     return 0;
 }

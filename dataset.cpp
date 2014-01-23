@@ -149,4 +149,8 @@ vector<int> DataSet::get_transaction(int id) const {
 
 
 pair<int, string> DataSet::remap(int id) const {
+    map<pair<int,string>, int>::const_iterator it;
+    for (it=identifier_map.begin(); it!=identifier_map.end(); ++it) {
+        if (it->second == id) return it->first;
+    }
 }

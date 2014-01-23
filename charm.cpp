@@ -52,11 +52,11 @@ Node* Charm::create_node(vector<int> items) {
         }
         node->set->first_class_id = first_class;
         node->set->single_class = single_class;
-        cout << "Node with class " << first_class << " has single class " << single_class << endl;
+        //cout << "Node with class " << first_class << " has single class " << single_class << endl;
         return node;
     }
     else {
-        cout << "Node not added" << endl;
+        //cout << "Node not added" << endl;
         return NULL;
     }
 }
@@ -77,11 +77,11 @@ Node* Charm::create_node(Set * set) {
         }
         node->set->first_class_id = first_class;
         node->set->single_class = single_class;
-        cout << "Node with class " << first_class << " has single class " << single_class << endl;
+        //cout << "Node with class " << first_class << " has single class " << single_class << endl;
         return node;
     }
     else {
-        cout << "Node not added" << endl;
+        //cout << "Node not added" << endl;
         return NULL;
     }
 }
@@ -130,7 +130,6 @@ void Charm::extend(Node * parent) {
 		}
         hashes.insert((*it)->set);
     }
-    delete parent->set;
 }
 
 Node* Charm::check_property(Node * a, Node * b, Node* candidate) {
