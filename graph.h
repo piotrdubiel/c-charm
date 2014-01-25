@@ -19,6 +19,7 @@ public:
     void set_parent(Node* parent);
     bool is_subset(Node *) const;
     void add_child(Node*);
+    void free();
 
 };
 

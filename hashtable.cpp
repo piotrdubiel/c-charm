@@ -4,31 +4,31 @@ void HashTable::insert(Set * n) {
     int hash = 0;
     vector<int>::iterator it;
     for (it=n->transactions.begin(); it != n->transactions.end(); ++it) {
-        hash += *it;
+        hash += *it + 1;
     }
-    cout << "Sum: " << hash <<endl;
+    cout << "Sum: " << hash << endl;
     hash %= MOD;
-    cout << "Hash: " << hash << endl;
 
+    cout << "Hash: " << hash << endl;
     list<Set *> addition;
-    addition.push_back(n);
+    addition.push_back(new Set(*n));
     pair<map<int,list<Set*> >::iterator,bool> ret = hash_map.insert(pair<int, list<Set*> >(hash, addition));
     if (ret.second == false) {
         bool can_add = true;
         list<Set*>::iterator lit;
         for (lit=ret.first->second.begin(); lit!=ret.first->second.end(); ++lit) {
-            if (n->is_subsumed(**lit) && n->support() == (*lit)->support()) {
+            if (n->is_subsumed(**lit)) {
                 can_add = false;
-                break;
                 cout << "Not added" << endl;
+                break;
             }
         }
 
         if (can_add) {
-            ret.first->second.push_back(n);
+            cout << "Added" << endl;
+            ret.first->second.push_back(new Set(*n));
         }
     }
-
 
     //tmp.push_back(new Set(*n));
 }

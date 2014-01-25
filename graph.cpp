@@ -3,6 +3,7 @@
 #include <cmath>
 #include <iostream>
 #include <algorithm>
+#include <stdio.h>
 
 Node::Node(Set * s): set(s)
 {
@@ -24,6 +25,13 @@ void Node::set_parent(Node * parent) {
 
 void Node::add_child(Node * node) {
     children.push_back(node);
+}
+
+void Node::free() {
+    if (set != NULL) {
+        delete set;
+        set = NULL;
+    }
 }
 
 void Graph::add_node(Node * node, Node * parent) {

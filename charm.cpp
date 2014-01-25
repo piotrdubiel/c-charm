@@ -28,7 +28,7 @@ vector<Set*> Charm::get_close_sets(int min_sup) {
         items.push_back(*it);
         graph->add_node(create_node(items), graph->root);
     }
-
+    hashes.insert(graph->root->set);
     extend(graph->root);
     return hashes.content();
 }
@@ -52,11 +52,9 @@ Node* Charm::create_node(vector<int> items) {
         }
         node->set->first_class_id = first_class;
         node->set->single_class = single_class;
-        //cout << "Node with class " << first_class << " has single class " << single_class << endl;
         return node;
     }
     else {
-        //cout << "Node not added" << endl;
         return NULL;
     }
 }
@@ -77,11 +75,9 @@ Node* Charm::create_node(Set * set) {
         }
         node->set->first_class_id = first_class;
         node->set->single_class = single_class;
-        //cout << "Node with class " << first_class << " has single class " << single_class << endl;
         return node;
     }
     else {
-        //cout << "Node not added" << endl;
         return NULL;
     }
 }
@@ -107,7 +103,7 @@ void Charm::extend(Node * parent) {
                     (*j)->set->transactions.end(),
 					back_inserter(tids));
 
-            if (tids.size() > min_sup) {
+            if (tids.size() >= min_sup) {
                 Set * set = new Set(items, tids);
                 Node * candidate = create_node(set);
 
@@ -125,11 +121,13 @@ void Charm::extend(Node * parent) {
             graph->delete_node(*deleter);
         }
 
+        hashes.insert((*it)->set);
+
 		if (!(*it)->children.empty()) {
 			extend(*it);	
 		}
-        hashes.insert((*it)->set);
     }
+    //parent->free();
 }
 
 Node* Charm::check_property(Node * a, Node * b, Node* candidate) {

@@ -2,7 +2,7 @@
 #define HASHTABLE_H
 
 #ifndef MOD
-#define MOD 123
+#define MOD 8
 #endif
 
 #include <map>

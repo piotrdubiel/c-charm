@@ -6,6 +6,11 @@
 #include <set>
 
 using namespace std;
+enum Order {
+    NONE,
+    ASCENDING,
+    DESCENDING,
+};
 
 class Utils {
 public:

@@ -29,8 +29,9 @@ bool Set::operator==(const Set& other) {
 }
 
 bool Set::is_subsumed(const Set& other) {
+    if (support() != other.support()) return false;
 	vector<int> temporary;
-	set_difference(identifiers.begin(), identifiers.end(), other.identifiers.begin(), other.identifiers.end(), back_inserter(temporary));
+	set_difference(other.identifiers.begin(), other.identifiers.end(), identifiers.begin(), identifiers.end(), back_inserter(temporary));
 	return temporary.empty();
 }
 

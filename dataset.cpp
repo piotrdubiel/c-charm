@@ -8,10 +8,7 @@
 
 DataSet::DataSet(ifstream & header, ifstream & input_file) {
     if (!header.is_open() || !input_file.is_open()) throw "File not opened";
-    cout << "Reading header ..." << endl;
     read_header(header);
-
-    cout << "Creating dataset from file..." << endl;
     read_data(input_file);
 }
 
