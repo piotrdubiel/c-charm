@@ -14,13 +14,13 @@ using namespace std;
 class Charm {
 
 public:
-    Charm(const DataSet &, int);
+    Charm(DataSet *, int);
     ~Charm();
     list<Rule> get_rules(const DataSet &);
     vector<Set*> get_close_sets(int);
 
 private:
-    const DataSet & data_set; 
+    DataSet* data_set; 
     int class_identifier;
     Graph * graph;
     int min_sup;

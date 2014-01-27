@@ -11,13 +11,15 @@ using namespace std;
 
 class DataSet {
     map<pair<int,string>,int> identifier_map;
+    map<int, string> attribute_map;
     vector<vector<int> > transactions;
-
 
     void read_header(ifstream &);
     void read_data(ifstream &);
+    void read_data_and_create_header(ifstream & input_file);
 public:
     DataSet(ifstream &, ifstream &);
+    DataSet(ifstream &);
     int support(int id) const;
     vector<int> get_tids(vector<int> identifiers) const;
     vector<int> get_transaction(int id) const;

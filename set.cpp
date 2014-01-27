@@ -7,6 +7,8 @@ Set::Set(vector<int> i, vector<int> t) {
 	sort(identifiers.begin(), identifiers.end());
 	this->transactions = t;
 	sort(transactions.begin(), transactions.end());
+    first_class_id = -1;
+    single_class = true;
 }
 
 Set::Set(const Set& ref) {

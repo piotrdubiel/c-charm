@@ -7,13 +7,23 @@
 #include "utils.h"
 
 DataSet::DataSet(ifstream & header, ifstream & input_file) {
-    if (!header.is_open() || !input_file.is_open()) throw "File not opened";
+    if (!header.is_open() || !input_file.is_open()) throw exception();
     read_header(header);
     read_data(input_file);
 }
 
+DataSet::DataSet(ifstream & input_file) {
+    if (!input_file.is_open()) throw exception();
+    read_data_and_create_header(input_file);
+}
+
 void DataSet::print_identifiers() const {
     cout << "HEADER" << endl;
+    map<int,string>::const_iterator jj;
+    for (jj=attribute_map.begin(); jj != attribute_map.end(); ++jj) {
+        cout << jj->second << endl;
+    }
+
     map<pair<int,string>,int>::const_iterator it;
     for (it=identifier_map.begin(); it != identifier_map.end(); ++it) {
         cout << it->first.first << "-" << it->first.second << " => " << it->second << endl;
@@ -64,6 +74,7 @@ void DataSet::read_header(ifstream & header) {
                     current_identifier++;
                 }
             }
+            attribute_map.insert(pair<int, string>(current_attribute, Utils::split(line, ' ')[0]));
             current_attribute++;
         }
         else {
@@ -78,6 +89,7 @@ void DataSet::read_header(ifstream & header) {
                     current_identifier++;
                 }
             }
+            attribute_map.insert(pair<int, string>(lines.size() - 1, "class"));
         }
     }
     header.close();
@@ -96,6 +108,25 @@ void DataSet::read_data(ifstream & input_file) {
 			else {
 				attributes.push_back(identifier_map[element]);
 			}
+        }
+        transactions.push_back(attributes);
+    }
+    input_file.close();
+}
+
+void DataSet::read_data_and_create_header(ifstream & input_file) {
+    string line;
+    int current_id = 0;
+    while (getline(input_file,line)) {
+        vector<string> tokens = Utils::split(line, ',');
+        vector<int> attributes;
+        for (int i = 0; i < tokens.size(); ++i) {
+            if (tokens[i] == "") continue;
+            pair<int,string> element(i, Utils::trim(tokens[i]));
+			if (identifier_map.insert(pair<pair<int, string>, int>(element, current_id)).second) {
+                current_id++;
+            }
+            attributes.push_back(identifier_map[element]);
         }
         transactions.push_back(attributes);
     }
@@ -150,4 +181,5 @@ pair<int, string> DataSet::remap(int id) const {
     for (it=identifier_map.begin(); it!=identifier_map.end(); ++it) {
         if (it->second == id) return it->first;
     }
+    return pair<int, string>(-1, "Unknown");
 }
