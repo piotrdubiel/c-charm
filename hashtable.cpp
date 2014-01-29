@@ -6,36 +6,44 @@ void HashTable::insert(Set * n) {
     for (it=n->transactions.begin(); it != n->transactions.end(); ++it) {
         hash += *it + 1;
     }
+#ifdef DEBUG
     cout << "Sum: " << hash << endl;
+#endif
     hash %= MOD;
-
+#ifdef DEBUG
     cout << "Hash: " << hash << endl;
-    list<Set *> addition;
-    addition.push_back(new Set(*n));
-    pair<map<int,list<Set*> >::iterator,bool> ret = hash_map.insert(pair<int, list<Set*> >(hash, addition));
+#endif
+
+    ISet * candidate = new ISet(*n);
+    list<ISet *> addition;
+    addition.push_back(candidate);
+    pair<map<int,list<ISet*> >::iterator,bool> ret = hash_map.insert(pair<int, list<ISet*> >(hash, addition));
     if (ret.second == false) {
         bool can_add = true;
-        list<Set*>::iterator lit;
+        list<ISet*>::iterator lit;
         for (lit=ret.first->second.begin(); lit!=ret.first->second.end(); ++lit) {
-            if (n->is_subsumed(**lit)) {
+            if (candidate->is_subsumed(**lit)) {
                 can_add = false;
+#ifdef DEBUG
                 cout << "Not added" << endl;
+#endif
                 break;
             }
         }
 
         if (can_add) {
+#ifdef DEBUG
             cout << "Added" << endl;
-            ret.first->second.push_back(new Set(*n));
+#endif
+            ret.first->second.push_back(candidate);
         }
     }
 
-    //tmp.push_back(new Set(*n));
 }
 
-vector<Set*> HashTable::content() const {
-    vector<Set*> result;
-    map<int, list<Set*> >::const_iterator it;
+vector<ISet*> HashTable::content() const {
+    vector<ISet*> result;
+    map<int, list<ISet*> >::const_iterator it;
     for (it=hash_map.begin(); it!=hash_map.end(); ++it) {
         result.insert(result.end(), it->second.begin(), it->second.end());
     }

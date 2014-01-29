@@ -2,7 +2,7 @@
 #define HASHTABLE_H
 
 #ifndef MOD
-#define MOD 8
+#define MOD 37247
 #endif
 
 #include <map>
@@ -10,18 +10,18 @@
 #include <vector>
 #include <iostream>
 #include "set.h"
+#include "iset.h"
 #include "graph.h"
 
 using namespace std;
 
 class HashTable {
 private:
-    map<int, list<Set*> > hash_map;
-    vector<Set*> tmp;
+    map<int, list<ISet*> > hash_map;
 
 public:
     void insert(Set*);
-    vector<Set*> content() const;
+    vector<ISet*> content() const;
 };
 
 #endif

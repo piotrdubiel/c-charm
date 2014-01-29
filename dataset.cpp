@@ -6,15 +6,29 @@
 
 #include "utils.h"
 
-DataSet::DataSet(ifstream & header, ifstream & input_file) {
+DataSet::DataSet(ifstream & header, ifstream & input_file, Order order) {
     if (!header.is_open() || !input_file.is_open()) throw exception();
     read_header(header);
     read_data(input_file);
+
+    print_identifiers();
+    if (order != NONE) {
+        to_sorted(order);
+    }
+    //transactions.clear();
+    //read_data(input_file);
+    header.close();
+    input_file.close();
 }
 
-DataSet::DataSet(ifstream & input_file) {
+DataSet::DataSet(ifstream & input_file, Order order) {
     if (!input_file.is_open()) throw exception();
     read_data_and_create_header(input_file);
+
+    if (order != NONE) {
+        to_sorted(order);
+    }
+    input_file.close();
 }
 
 void DataSet::print_identifiers() const {
@@ -26,7 +40,9 @@ void DataSet::print_identifiers() const {
 
     map<pair<int,string>,int>::const_iterator it;
     for (it=identifier_map.begin(); it != identifier_map.end(); ++it) {
-        cout << it->first.first << "-" << it->first.second << " => " << it->second << endl;
+        vector<int> ids;
+        ids.push_back(it->second);
+        cout << it->first.first << "-" << it->first.second << " => " << it->second << " sup: " << get_tids(ids).size() << endl;
     }
 }
 
@@ -74,7 +90,7 @@ void DataSet::read_header(ifstream & header) {
                     current_identifier++;
                 }
             }
-            attribute_map.insert(pair<int, string>(current_attribute, Utils::split(line, ' ')[0]));
+            attribute_map.insert(pair<int, string>(current_attribute, Utils::split(line, ':')[0]));
             current_attribute++;
         }
         else {
@@ -92,26 +108,26 @@ void DataSet::read_header(ifstream & header) {
             attribute_map.insert(pair<int, string>(lines.size() - 1, "class"));
         }
     }
-    header.close();
 }
 
 void DataSet::read_data(ifstream & input_file) {
     string line;
+    input_file.seekg(0, input_file.beg);
     while (getline(input_file,line)) {
+        cout << "linr" << endl;
         vector<string> tokens = Utils::split(line, ',');
         vector<int> attributes;
         for (int i = 0; i < tokens.size(); ++i) {
             pair<int,string> element(i, Utils::trim(tokens[i]));
             if (identifier_map.count(element) == 0) {
-				attributes.push_back(-1);
-			}
-			else {
-				attributes.push_back(identifier_map[element]);
-			}
+                attributes.push_back(-1);
+            }
+            else {
+                attributes.push_back(identifier_map[element]);
+            }
         }
         transactions.push_back(attributes);
     }
-    input_file.close();
 }
 
 void DataSet::read_data_and_create_header(ifstream & input_file) {
@@ -123,14 +139,13 @@ void DataSet::read_data_and_create_header(ifstream & input_file) {
         for (int i = 0; i < tokens.size(); ++i) {
             if (tokens[i] == "") continue;
             pair<int,string> element(i, Utils::trim(tokens[i]));
-			if (identifier_map.insert(pair<pair<int, string>, int>(element, current_id)).second) {
+            if (identifier_map.insert(pair<pair<int, string>, int>(element, current_id)).second) {
                 current_id++;
             }
             attributes.push_back(identifier_map[element]);
         }
         transactions.push_back(attributes);
     }
-    input_file.close();
 }
 
 int DataSet::support(int id) const {
@@ -182,4 +197,50 @@ pair<int, string> DataSet::remap(int id) const {
         if (it->second == id) return it->first;
     }
     return pair<int, string>(-1, "Unknown");
+}
+
+struct ascending_struct {
+    bool operator() (pair<int, int> i, pair<int, int> j) {
+        return i.second < j.second;
+    }
+} ascending_comparator;
+
+struct descending_struct {
+    bool operator() (pair<int, int> i, pair<int, int> j) {
+        return i.second > j.second;
+    }
+} descending_comparator;
+
+void DataSet::to_sorted(Order order) {
+    vector<pair<int, int> > supports;
+
+    map<pair<int,string>, int>::iterator it;
+    for (it=identifier_map.begin(); it != identifier_map.end(); ++it) {
+        vector<int> ids;
+        ids.push_back(it->second);
+        supports.push_back(pair<int, int>(it->second, get_tids(ids).size()));
+    }
+
+    if (order == ASCENDING) {
+        sort(supports.begin(), supports.end(), ascending_comparator);
+    }
+    else {
+        sort(supports.begin(), supports.end(), descending_comparator);
+    }
+
+    cout << "ORDER" <<endl;
+    int new_identifier = 0;
+    vector<pair<int,int> >::iterator ii;
+    map<pair<int,string>,int> old_identifier_map(identifier_map);
+    for (ii=supports.begin(); ii != supports.end(); ++ii) {
+        cout<< ii->first << " " << ii->second << endl;
+        map<pair<int,string>, int>::iterator tt;
+        for (tt=old_identifier_map.begin(); tt!=old_identifier_map.end(); ++tt) {
+            if (ii->first == tt->second) {
+                identifier_map[tt->first] = new_identifier++;
+                break;   
+            }
+        }
+    }
+
 }

@@ -1,7 +1,7 @@
 CC=g++
 
-OBJS=main.o graph.o dataset.o charm.o rule.o utils.o set.o hashtable.o
-HEADERS=graph.h dataset.h charm.h rule.h utils.h set.h hashtable.h
+OBJS=main.o graph.o dataset.o charm.o rule.o utils.o set.o hashtable.o iset.o
+HEADERS=graph.h dataset.h charm.h rule.h utils.h set.h hashtable.h iset.h
 CFLAGS=-g -ggdb
 
 all: $(OBJS) 	

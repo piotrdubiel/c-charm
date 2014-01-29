@@ -30,9 +30,11 @@ string& Utils::trim(string & text) {
     return ltrim(rtrim(text));
 }
 
-
-template<class T> vector<T> Utils::unionv(vector<T> a, vector<T> b) {
-    vector<T> result;
-    set_union(a.begin(), a.end(), b.begin(), b.end(), result.begin());
-    return result;
+bool Utils::exists(const string & filename) {
+    if (FILE *file = fopen(filename.c_str(), "r")) {
+        fclose(file);
+        return true;
+    } else {
+        return false;
+    } 
 }

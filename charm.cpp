@@ -3,9 +3,10 @@
 #include <algorithm>
 #include <iterator>
 
-Charm::Charm(DataSet * d, int c):
+Charm::Charm(DataSet * d, int cls, int sup):
     data_set(d),
-    class_identifier(c)
+    class_identifier(cls),
+    min_sup(sup)
 {
 
 }
@@ -16,7 +17,7 @@ Charm::~Charm() {
     delete data_set;
 }
 
-vector<Set*> Charm::get_close_sets(int min_sup) {
+vector<ISet*> Charm::get_close_sets(int min_sup) {
     this->min_sup = min_sup;
     graph = new Graph();
 
@@ -108,10 +109,6 @@ void Charm::extend(Node * parent) {
                     (*j)->set->transactions.end(),
                     back_inserter(tids));
 
-            if (tids.size() == 0) {
-                cout << "Empty" <<endl;
-            }
-
             if (tids.size() >= min_sup) {
                 Set * set = new Set(items, tids);
                 Node * candidate = create_node(set);
@@ -136,7 +133,6 @@ void Charm::extend(Node * parent) {
             extend(*it);	
         }
     }
-    //parent->free();
 }
 
 Node* Charm::check_property(Node * a, Node * b, Node* candidate) {

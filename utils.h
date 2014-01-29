@@ -6,11 +6,6 @@
 #include <set>
 
 using namespace std;
-enum Order {
-    NONE,
-    ASCENDING,
-    DESCENDING,
-};
 
 class Utils {
 public:
@@ -18,7 +13,7 @@ public:
     static string& rtrim(string &);
     static string& ltrim(string &);
     static string& trim(string &);
-    template<class T> static vector<T> unionv(vector<T>, vector<T>);
+    static bool exists(const string&);
 };
 
 #endif

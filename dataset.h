@@ -6,8 +6,15 @@
 #include <string>
 #include <vector>
 #include <map>
+#include "set.h"
 
 using namespace std;
+
+enum Order {
+    NONE,
+    ASCENDING,
+    DESCENDING,
+};
 
 class DataSet {
     map<pair<int,string>,int> identifier_map;
@@ -17,9 +24,10 @@ class DataSet {
     void read_header(ifstream &);
     void read_data(ifstream &);
     void read_data_and_create_header(ifstream & input_file);
-public:
-    DataSet(ifstream &, ifstream &);
-    DataSet(ifstream &);
+    void to_sorted(Order);
+    public:
+    DataSet(ifstream &, ifstream &, Order);
+    DataSet(ifstream &, Order);
     int support(int id) const;
     vector<int> get_tids(vector<int> identifiers) const;
     vector<int> get_transaction(int id) const;

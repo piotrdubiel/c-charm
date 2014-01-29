@@ -14,10 +14,10 @@ using namespace std;
 class Charm {
 
 public:
-    Charm(DataSet *, int);
+    Charm(DataSet *, int, int);
     ~Charm();
     list<Rule> get_rules(const DataSet &);
-    vector<Set*> get_close_sets(int);
+    vector<ISet*> get_close_sets(int);
 
 private:
     DataSet* data_set; 
