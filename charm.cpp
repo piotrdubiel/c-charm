@@ -7,18 +7,22 @@ Charm::Charm(DataSet * d, int cls, int sup):
     data_set(d),
     class_identifier(cls),
     min_sup(sup)
+{}
+
+Charm::Charm(DataSet * d, int sup):
+    data_set(d),
+    min_sup(sup)
 {
-
+    class_identifier = d->last_attribute();
+    cout << "using last attribute as decision "<< class_identifier << endl;
 }
-
 
 Charm::~Charm() {
     delete graph;
     delete data_set;
 }
 
-vector<ISet*> Charm::get_close_sets(int min_sup) {
-    this->min_sup = min_sup;
+vector<ISet*> Charm::get_close_sets() {
     graph = new Graph();
 
     graph->root = create_node(vector<int>());
@@ -26,6 +30,7 @@ vector<ISet*> Charm::get_close_sets(int min_sup) {
     vector<int> ids = data_set->get_identifiers(class_identifier);
     vector<int>::iterator it;
     for (it=ids.begin(); it!=ids.end(); ++it) {
+        cout << "ID: " << *it << endl;
         vector<int> items;
         items.push_back(*it);
         graph->add_node(create_node(items), graph->root);
@@ -91,9 +96,11 @@ Node* Charm::create_node(Set * set) {
 void Charm::extend(Node * parent) {
     vector<Node*>::iterator it;
     for (it=parent->children.begin(); it!=parent->children.end(); ++it) {
+        if ((*it)->set->support() < min_sup) continue;
         vector<Node*>::iterator j;
         vector<Node*> to_delete;
         for (j=it; j!=parent->children.end(); ++j) {
+            if ((*j)->set->support() < min_sup) continue;
             if (it == j) continue;
             vector<int> items;
             set_union((*it)->set->identifiers.begin(),
@@ -128,6 +135,8 @@ void Charm::extend(Node * parent) {
         }
 
         hashes.insert((*it)->set);
+
+        //(*it)->free();
 
         if (!(*it)->children.empty()) {
             extend(*it);	

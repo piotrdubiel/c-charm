@@ -15,16 +15,18 @@ DataSet::DataSet(ifstream & header, ifstream & input_file, Order order) {
     if (order != NONE) {
         to_sorted(order);
     }
-    //transactions.clear();
-    //read_data(input_file);
+    transactions.clear();
+    read_data(input_file);
     header.close();
     input_file.close();
+    print_identifiers();
 }
 
 DataSet::DataSet(ifstream & input_file, Order order) {
     if (!input_file.is_open()) throw exception();
     read_data_and_create_header(input_file);
 
+    print_identifiers();
     if (order != NONE) {
         to_sorted(order);
     }
@@ -111,10 +113,10 @@ void DataSet::read_header(ifstream & header) {
 }
 
 void DataSet::read_data(ifstream & input_file) {
+    input_file.clear();
+    input_file.seekg(0);
     string line;
-    input_file.seekg(0, input_file.beg);
     while (getline(input_file,line)) {
-        cout << "linr" << endl;
         vector<string> tokens = Utils::split(line, ',');
         vector<int> attributes;
         for (int i = 0; i < tokens.size(); ++i) {
@@ -137,12 +139,16 @@ void DataSet::read_data_and_create_header(ifstream & input_file) {
         vector<string> tokens = Utils::split(line, ',');
         vector<int> attributes;
         for (int i = 0; i < tokens.size(); ++i) {
-            if (tokens[i] == "") continue;
-            pair<int,string> element(i, Utils::trim(tokens[i]));
-            if (identifier_map.insert(pair<pair<int, string>, int>(element, current_id)).second) {
-                current_id++;
+            if (tokens[i] == "") {
+                attributes.push_back(-1);
             }
-            attributes.push_back(identifier_map[element]);
+            else {
+                pair<int,string> element(i, Utils::trim(tokens[i]));
+                if (identifier_map.insert(pair<pair<int, string>, int>(element, current_id)).second) {
+                    current_id++;
+                }
+                attributes.push_back(identifier_map[element]);
+            }
         }
         transactions.push_back(attributes);
     }
@@ -183,6 +189,7 @@ vector<int> DataSet::get_identifiers(int class_id) const {
             identifiers.push_back(it->second);
         }
     }
+    sort(identifiers.begin(), identifiers.end());
     return identifiers;
 }
 
@@ -243,4 +250,15 @@ void DataSet::to_sorted(Order order) {
         }
     }
 
+}
+
+int DataSet::last_attribute() const {
+    int max = -1;
+    map<pair<int,string>, int>::const_iterator it;
+    for (it=identifier_map.begin(); it != identifier_map.end(); ++it) {
+        if (it->first.first > max) {
+            max = it->first.first;
+        }
+    }
+    return max;
 }

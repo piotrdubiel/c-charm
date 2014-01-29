@@ -49,3 +49,13 @@ vector<ISet*> HashTable::content() const {
     }
     return result;
 }
+
+HashTable::~HashTable() {
+    map<int, list<ISet*> >::iterator it;
+    for (it=hash_map.begin(); it!=hash_map.end(); ++it) {
+        list<ISet*>::iterator lit;
+        for (lit=it->second.begin(); lit!=it->second.end(); ++lit) {
+            delete *lit;
+        }
+    }
+}

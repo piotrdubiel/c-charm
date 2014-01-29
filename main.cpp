@@ -83,7 +83,7 @@ int main(int argc, char* argv[]) {
             return 1;
         }
     }
-    
+    cout << "Class attribute: " << class_attribute << endl;
     data_filename = argv[argc-2];   
     output_filename = argv[argc-1];   
 
@@ -108,14 +108,17 @@ int main(int argc, char* argv[]) {
         data = new DataSet(data_file, order);
     }
 
-
-
     data->print_identifiers();
-    return 9;
-    Charm charm(data, class_attribute, min_sup);
+    cout << data->last_attribute() << endl;
+    Charm * charm;
+    if (class_attribute != -1) {
+        charm = new Charm(data, class_attribute, min_sup);
+    }
+    else {
+        charm = new Charm(data, min_sup);
+    }
 
-
-    vector<ISet*> sets = charm.get_close_sets(0);
+    vector<ISet*> sets = charm->get_close_sets();
     vector<ISet*>::iterator it;
     for (it=sets.begin(); it != sets.end(); ++it) {
         vector<int>::iterator i;
@@ -124,10 +127,12 @@ int main(int argc, char* argv[]) {
             cout << data->remap(*i).second << " ";
         }
         //cout << "\t\t\tSingle class: " << (*it)->single_class << "\t   Class: " << data->remap((*it)->first_class_id).second << endl;
-        cout <<  "\t\t Class: " << data->remap((*it)->first_class_id).second << " single: " << (*it)->single_class << " support: " << (*it)->support() <<  endl;
+        cout <<  "\t\t Class: "<< (*it)->first_class_id<< " " << data->remap((*it)->first_class_id).second << " single: " << (*it)->single_class << " support: " << (*it)->support() <<  endl;
         //delete *it;
         //}
     }
+
+    delete charm;
 
     return 0;
 }

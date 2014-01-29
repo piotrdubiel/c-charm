@@ -22,6 +22,7 @@ private:
 public:
     void insert(Set*);
     vector<ISet*> content() const;
+    ~HashTable();
 };
 
 #endif
