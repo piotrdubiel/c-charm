@@ -120,6 +120,7 @@ int main(int argc, char* argv[]) {
 
     vector<ISet*> sets = charm->get_close_sets();
     vector<ISet*>::iterator it;
+    int rules = 0;
     for (it=sets.begin(); it != sets.end(); ++it) {
         vector<int>::iterator i;
         //if ((*it)->single_class) {
@@ -130,7 +131,13 @@ int main(int argc, char* argv[]) {
         cout <<  "\t\t Class: "<< (*it)->first_class_id<< " " << data->remap((*it)->first_class_id).second << " single: " << (*it)->single_class << " support: " << (*it)->support() <<  endl;
         //delete *it;
         //}
+        //
+        if ((*it)->single_class) {
+            rules++;
+        }
     }
+
+    cout << "Rules: " <<  rules << endl;
 
     delete charm;
 

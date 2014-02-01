@@ -30,6 +30,8 @@ DataSet::DataSet(ifstream & input_file, Order order) {
     if (order != NONE) {
         to_sorted(order);
     }
+    transactions.clear();
+    read_data(input_file);
     input_file.close();
 }
 

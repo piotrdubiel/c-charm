@@ -136,11 +136,11 @@ void Charm::extend(Node * parent) {
 
         hashes.insert((*it)->set);
 
-        //(*it)->free();
-
         if (!(*it)->children.empty()) {
             extend(*it);	
         }
+
+        (*it)->free();
     }
 }
 
