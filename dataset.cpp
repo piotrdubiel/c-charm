@@ -264,3 +264,12 @@ int DataSet::last_attribute() const {
     }
     return max;
 }
+
+string DataSet::get_attribute(int id) {
+    if (attribute_map.count(id)>0) {
+        return attribute_map[id];
+    }
+    else {
+        return "Unknown";
+    }
+}

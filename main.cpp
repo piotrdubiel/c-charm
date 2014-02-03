@@ -9,6 +9,7 @@
 #include "utils.h"
 #include "set.h"
 #include "writer.h"
+#include "rule_builder.h"
 
 using namespace std;
 
@@ -119,8 +120,15 @@ int main(int argc, char* argv[]) {
     }
 
     vector<ISet*> sets = charm->get_close_sets();
+
+    RuleBuilder builder(data);
+
+
+    map<int, list<Rule> > rules = builder.build(sets);
+    
+    return 4;
+
     vector<ISet*>::iterator it;
-    int rules = 0;
     for (it=sets.begin(); it != sets.end(); ++it) {
         vector<int>::iterator i;
         //if ((*it)->single_class) {
@@ -133,11 +141,9 @@ int main(int argc, char* argv[]) {
         //}
         //
         if ((*it)->single_class) {
-            rules++;
         }
     }
 
-    cout << "Rules: " <<  rules << endl;
 
     delete charm;
 

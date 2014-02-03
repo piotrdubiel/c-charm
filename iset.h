@@ -2,6 +2,7 @@
 #define ISET_H
 
 #include <vector>
+#include <string>
 #include "set.h"
 
 using namespace std;
@@ -19,6 +20,8 @@ public:
 	bool operator==(const ISet&);
 
     int support() const;
+
+    string print() const;
 };
 
 #endif

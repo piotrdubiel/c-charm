@@ -3,7 +3,8 @@
 
 #include <iostream>
 #include <fstream>
-#include "iset.h"
+#include "rule.h"
+:wa
 
 using namespace std;
 
@@ -13,7 +14,7 @@ enum OutputType {
 };
 
 class Writer {
-    static void write(ofstream &, vector<ISet*>);
+    static void write(ofstream &, map<int, list<Rule> >);
 };
 
 #endif

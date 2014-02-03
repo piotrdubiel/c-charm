@@ -17,7 +17,6 @@ public:
     Charm(DataSet *, int, int);
     Charm(DataSet *, int);
     ~Charm();
-    list<Rule> get_rules(const DataSet &);
     vector<ISet*> get_close_sets();
 
 private:

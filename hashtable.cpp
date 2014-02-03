@@ -22,7 +22,7 @@ void HashTable::insert(Set * n) {
         bool can_add = true;
         list<ISet*>::iterator lit;
         for (lit=ret.first->second.begin(); lit!=ret.first->second.end(); ++lit) {
-            if (candidate->is_subsumed(**lit)) {
+            if (candidate->support() == (*lit)->support() && candidate->is_subsumed(**lit)) {
                 can_add = false;
 #ifdef DEBUG
                 cout << "Not added" << endl;

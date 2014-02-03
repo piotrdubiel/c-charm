@@ -4,15 +4,19 @@
 #include <string>
 #include <iostream>
 #include <map>
+#include "iset.h"
 
 using namespace std;
 
 class Rule {
     private:
         map<string,string> attributes;
+        string decision;
     public:
-        Rule();
+        ISet* set;
+        Rule(ISet*);
         void add_attribute(string, string);
+        bool is_subset_of(const ISet&) const;
 
 };
 

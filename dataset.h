@@ -38,6 +38,7 @@ class DataSet {
     int last_attribute() const;
 
     pair<int, string> remap(int id) const;
+    string get_attribute(int id);
 };
 
 #endif

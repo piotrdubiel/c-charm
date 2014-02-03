@@ -1,6 +1,7 @@
 #include "iset.h"
 #include <algorithm>
 #include <iterator>
+#include <sstream>
 
 ISet::ISet(const Set & set) {
     identifiers = set.identifiers;
@@ -10,7 +11,6 @@ ISet::ISet(const Set & set) {
 }
 
 bool ISet::is_subsumed(const ISet& other) {
-    if (sup != other.sup) return false;
 	vector<int> temporary;
 	set_difference(other.identifiers.begin(), other.identifiers.end(), identifiers.begin(), identifiers.end(), back_inserter(temporary));
 	return temporary.empty();
@@ -22,4 +22,15 @@ bool ISet::operator==(const ISet& other) {
 
 int ISet::support() const {
     return sup;
+}
+
+string ISet::print() const {
+    stringstream ss;
+
+    vector<int>::const_iterator it;
+    for (it=identifiers.begin(); it!=identifiers.end(); ++it) {
+        ss << *it;
+        ss << " ";
+    }
+    return ss.str();
 }
