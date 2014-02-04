@@ -1,13 +1,15 @@
 #include "rule.h"
 
-Rule::Rule(ISet* s) {
+Rule::Rule(ISet* s, string c, string d) {
     set = s;
+	class_attribute = c;
+	decision = d;
 }
 
 void Rule::add_attribute(string name, string value) {
     attributes.insert(pair<string, string>(name, value));
 }
 
-bool Rule::is_subset_of(const ISet& other) const {
-    return set->is_subsumed(other);
+bool Rule::has_superset_of(const ISet& other) const {
+	return other.is_subsumed(*set);
 }

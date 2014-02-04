@@ -9,14 +9,15 @@
 using namespace std;
 
 class Rule {
-    private:
-        map<string,string> attributes;
-        string decision;
     public:
+        map<string,string> attributes;
+        string class_attribute;
+		string decision;
+    
         ISet* set;
-        Rule(ISet*);
+        Rule(ISet*, string, string);
         void add_attribute(string, string);
-        bool is_subset_of(const ISet&) const;
+        bool has_superset_of(const ISet&) const;
 
 };
 

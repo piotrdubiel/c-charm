@@ -1,10 +1,17 @@
 #ifndef TEXT_WRITER_H
 #define TEXT_WRITER_H
 
-#include "writer.h"
+#include <iostream>
+#include <fstream>
+#include <map>
+#include <list>
+#include "rule.h"
 
-class TextWriter : Writer {
-    static void write(ofstream &, vector<ISet*>);
+//#include "writer.h"
+
+class TextWriter {
+public:
+    static void write(ofstream &, map<int, list<Rule> >);
 };
 
 #endif

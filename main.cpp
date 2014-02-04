@@ -9,6 +9,7 @@
 #include "utils.h"
 #include "set.h"
 #include "writer.h"
+#include "text_writer.h"
 #include "rule_builder.h"
 
 using namespace std;
@@ -126,6 +127,7 @@ int main(int argc, char* argv[]) {
 
     map<int, list<Rule> > rules = builder.build(sets);
     
+	TextWriter::write(ofstream(output_filename), rules);
     return 4;
 
     vector<ISet*>::iterator it;

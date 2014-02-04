@@ -10,7 +10,7 @@ ISet::ISet(const Set & set) {
     sup = set.transactions.size();
 }
 
-bool ISet::is_subsumed(const ISet& other) {
+bool ISet::is_subsumed(const ISet& other) const {
 	vector<int> temporary;
 	set_difference(other.identifiers.begin(), other.identifiers.end(), identifiers.begin(), identifiers.end(), back_inserter(temporary));
 	return temporary.empty();

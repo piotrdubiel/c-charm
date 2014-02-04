@@ -18,9 +18,12 @@ map<int, list<Rule> > RuleBuilder::build(vector<ISet*> sets) {
 
     vector<ISet*>::iterator it;
     for (it=sets.begin(); it!=sets.end(); ++it) {
+		if (!(*it)->single_class) continue;
+
         cout << "length " << (*it)->identifiers.size() <<endl;
         int decision = (*it)->first_class_id;
-        Rule rule(*it);
+		 pair<int, string> decision_mapped = data_set->remap(decision);
+		 Rule rule(*it, data_set->get_attribute(decision_mapped.first), decision_mapped.second);
 
         vector<int>::iterator id;
         for (id=(*it)->identifiers.begin(); id!=(*it)->identifiers.end(); ++id) {
@@ -30,14 +33,16 @@ map<int, list<Rule> > RuleBuilder::build(vector<ISet*> sets) {
 
         if (rules.count(decision)>0) {
             list<Rule>::iterator tt;
+			bool can_add = true;
             for (tt=rules[decision].begin(); tt!=rules[decision].end(); ++tt) {
-                if (tt->is_subset_of(**it)) {
-                    cout << (*it)->print() << endl;
-                    cout << tt->set->print() << endl;
-                    cout << "Not adding" << endl;
+                if (tt->has_superset_of(**it)) {
+					can_add = false;
                     break;
                 }
             }
+			if (can_add) {
+				rules[decision].push_back(rule);
+			}
         }
         else {
             list<Rule> addition;

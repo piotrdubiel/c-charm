@@ -16,7 +16,7 @@ public:
     int first_class_id;
     bool single_class;
 
-    bool is_subsumed(const ISet&);
+    bool is_subsumed(const ISet&) const;
 	bool operator==(const ISet&);
 
     int support() const;

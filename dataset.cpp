@@ -3,6 +3,7 @@
 #include <fstream>
 #include <string>
 #include <algorithm>
+#include <sstream>
 
 #include "utils.h"
 
@@ -270,6 +271,8 @@ string DataSet::get_attribute(int id) {
         return attribute_map[id];
     }
     else {
-        return "Unknown";
+		stringstream ss;
+		ss << "Attribute: " << id;
+		return ss.str();
     }
 }

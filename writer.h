@@ -3,8 +3,8 @@
 
 #include <iostream>
 #include <fstream>
+#include <list>
 #include "rule.h"
-:wa
 
 using namespace std;
 
