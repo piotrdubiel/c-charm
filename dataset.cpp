@@ -107,7 +107,7 @@ void DataSet::read_header(ifstream & header) {
                     current_identifier++;
                 }
             }
-            attribute_map.insert(pair<int, string>(lines.size() - 1, "Decision"));
+            attribute_map.insert(pair<int, string>(lines.size() - 1, "decision"));
         }
     }
 }

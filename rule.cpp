@@ -7,7 +7,7 @@ Rule::Rule(ISet* s, pair<int, string> c, string d) {
 }
 
 void Rule::add_attribute(string name, string value) {
-    attributes.insert(pair<string, string>(name, value));
+    attributes[name] = value;
 }
 
 bool Rule::has_superset_of(const ISet& other) const {

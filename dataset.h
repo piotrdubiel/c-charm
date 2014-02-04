@@ -39,6 +39,7 @@ class DataSet {
 
     pair<int, string> remap(int id) const;
     string get_attribute(int id);
+	map<int, string> get_attributes() const;
 };
 
 #endif

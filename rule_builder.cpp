@@ -31,12 +31,11 @@ map<int, list<Rule> > RuleBuilder::build(vector<ISet*> sets) {
         for (id=identifiers.begin(); id!=identifiers.end(); ++id) {
             pair<int, string> remapped = data_set->remap(*id);
             if (find((*it)->identifiers.begin(), (*it)->identifiers.end(), *id)!=(*it)->identifiers.end()) {
-              //  rule.add_attribute(data_set->get_attribute(remapped.first), remapped.second);
+				rule.add_attribute(data_set->get_attribute(remapped.first), remapped.second);
             }
-            else {
-            //    rule.add_attribute(data_set->get_attribute(remapped.first), "");
+			else if (rule.attributes.count(data_set->get_attribute(remapped.first))==0) {
+				rule.add_attribute(data_set->get_attribute(remapped.first), "");
             }
-            rule.add_attribute(data_set->get_attribute(remapped.first), remapped.second);
         }
 
         if (rules.count(decision)>0) {
@@ -59,4 +58,8 @@ map<int, list<Rule> > RuleBuilder::build(vector<ISet*> sets) {
         }
     }
     return rules;
+}
+
+map<int, string> DataSet::get_attributes() const {
+	return attribute_map;
 }
