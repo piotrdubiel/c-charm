@@ -10,6 +10,7 @@
 #include "set.h"
 #include "writer.h"
 #include "text_writer.h"
+#include "csv_writer.h"
 #include "rule_builder.h"
 
 using namespace std;
@@ -85,7 +86,6 @@ int main(int argc, char* argv[]) {
             return 1;
         }
     }
-    cout << "Class attribute: " << class_attribute << endl;
     data_filename = argv[argc-2];   
     output_filename = argv[argc-1];   
 
@@ -110,8 +110,6 @@ int main(int argc, char* argv[]) {
         data = new DataSet(data_file, order);
     }
 
-    data->print_identifiers();
-    cout << data->last_attribute() << endl;
     Charm * charm;
     if (class_attribute != -1) {
         charm = new Charm(data, class_attribute, min_sup);
@@ -124,10 +122,14 @@ int main(int argc, char* argv[]) {
 
     RuleBuilder builder(data);
 
-
     map<int, list<Rule> > rules = builder.build(sets);
     
-	TextWriter::write(ofstream(output_filename), rules);
+    ofstream text_output(string(output_filename).append(".txt").c_str());
+	TextWriter::write(text_output, rules);
+    text_output.close();
+    ofstream csv_output(string(output_filename).append(".csv").c_str());
+	CsvWriter::write(csv_output, rules, data);
+    csv_output.close();
     return 4;
 
     vector<ISet*>::iterator it;

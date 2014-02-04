@@ -16,18 +16,26 @@ map<int, list<Rule> > RuleBuilder::build(vector<ISet*> sets) {
 
     map<int, list<Rule> > rules;
 
+    vector<int> identifiers = data_set->get_identifiers(data_set->remap(sets.front()->first_class_id).first);
+
     vector<ISet*>::iterator it;
     for (it=sets.begin(); it!=sets.end(); ++it) {
 		if (!(*it)->single_class) continue;
 
-        cout << "length " << (*it)->identifiers.size() <<endl;
         int decision = (*it)->first_class_id;
-		 pair<int, string> decision_mapped = data_set->remap(decision);
-		 Rule rule(*it, data_set->get_attribute(decision_mapped.first), decision_mapped.second);
+		pair<int, string> decision_mapped = data_set->remap(decision);
+		Rule rule(*it, pair<int,string>(decision_mapped.first, data_set->get_attribute(decision_mapped.first)), decision_mapped.second);
+
 
         vector<int>::iterator id;
-        for (id=(*it)->identifiers.begin(); id!=(*it)->identifiers.end(); ++id) {
+        for (id=identifiers.begin(); id!=identifiers.end(); ++id) {
             pair<int, string> remapped = data_set->remap(*id);
+            if (find((*it)->identifiers.begin(), (*it)->identifiers.end(), *id)!=(*it)->identifiers.end()) {
+              //  rule.add_attribute(data_set->get_attribute(remapped.first), remapped.second);
+            }
+            else {
+            //    rule.add_attribute(data_set->get_attribute(remapped.first), "");
+            }
             rule.add_attribute(data_set->get_attribute(remapped.first), remapped.second);
         }
 

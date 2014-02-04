@@ -11,7 +11,7 @@
 
 class TextWriter {
 public:
-    static void write(ofstream &, map<int, list<Rule> >);
+    static void write(ostream &, map<int, list<Rule> >);
 };
 
 #endif

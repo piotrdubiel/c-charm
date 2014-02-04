@@ -11,11 +11,11 @@ using namespace std;
 class Rule {
     public:
         map<string,string> attributes;
-        string class_attribute;
+        pair<int, string> class_attribute;
 		string decision;
     
         ISet* set;
-        Rule(ISet*, string, string);
+        Rule(ISet*, pair<int,string>, string);
         void add_attribute(string, string);
         bool has_superset_of(const ISet&) const;
 

@@ -12,7 +12,6 @@ DataSet::DataSet(ifstream & header, ifstream & input_file, Order order) {
     read_header(header);
     read_data(input_file);
 
-    print_identifiers();
     if (order != NONE) {
         to_sorted(order);
     }
@@ -20,14 +19,12 @@ DataSet::DataSet(ifstream & header, ifstream & input_file, Order order) {
     read_data(input_file);
     header.close();
     input_file.close();
-    print_identifiers();
 }
 
 DataSet::DataSet(ifstream & input_file, Order order) {
     if (!input_file.is_open()) throw exception();
     read_data_and_create_header(input_file);
 
-    print_identifiers();
     if (order != NONE) {
         to_sorted(order);
     }
@@ -110,7 +107,7 @@ void DataSet::read_header(ifstream & header) {
                     current_identifier++;
                 }
             }
-            attribute_map.insert(pair<int, string>(lines.size() - 1, "class"));
+            attribute_map.insert(pair<int, string>(lines.size() - 1, "Decision"));
         }
     }
 }
@@ -272,7 +269,7 @@ string DataSet::get_attribute(int id) {
     }
     else {
 		stringstream ss;
-		ss << "Attribute: " << id;
+		ss << "Attribute " << id;
 		return ss.str();
     }
 }

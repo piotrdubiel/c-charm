@@ -1,6 +1,6 @@
 #include "rule.h"
 
-Rule::Rule(ISet* s, string c, string d) {
+Rule::Rule(ISet* s, pair<int, string> c, string d) {
     set = s;
 	class_attribute = c;
 	decision = d;

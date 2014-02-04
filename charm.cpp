@@ -14,7 +14,6 @@ Charm::Charm(DataSet * d, int sup):
     min_sup(sup)
 {
     class_identifier = d->last_attribute();
-    cout << "using last attribute as decision "<< class_identifier << endl;
 }
 
 Charm::~Charm() {
@@ -30,7 +29,6 @@ vector<ISet*> Charm::get_close_sets() {
     vector<int> ids = data_set->get_identifiers(class_identifier);
     vector<int>::iterator it;
     for (it=ids.begin(); it!=ids.end(); ++it) {
-        cout << "ID: " << *it << endl;
         vector<int> items;
         items.push_back(*it);
         graph->add_node(create_node(items), graph->root);
