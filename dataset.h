@@ -18,7 +18,7 @@ enum Order {
 
 class DataSet {
     private:
-    map<pair<int,string>,int> identifier_map;
+    map<int, pair<int,string> > identifier_map;
     map<int, string> attribute_map;
     vector<vector<int> > transactions;
 
@@ -37,9 +37,10 @@ class DataSet {
     void print() const;
     int last_attribute() const;
 
-    pair<int, string> remap(int id) const;
+    int remap(pair<int, string>) const;
     string get_attribute(int id);
 	map<int, string> get_attributes() const;
+    pair<int,string> get_id(int) const;
 };
 
 #endif

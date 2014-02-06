@@ -40,11 +40,11 @@ void DataSet::print_identifiers() const {
         cout << jj->second << endl;
     }
 
-    map<pair<int,string>,int>::const_iterator it;
+    map<int, pair<int,string> >::const_iterator it;
     for (it=identifier_map.begin(); it != identifier_map.end(); ++it) {
         vector<int> ids;
-        ids.push_back(it->second);
-        cout << it->first.first << "-" << it->first.second << " => " << it->second << " sup: " << get_tids(ids).size() << endl;
+        ids.push_back(it->first);
+        cout << it->second.first << "-" << it->second.second << " => " << it->first << " sup: " << get_tids(ids).size() << endl;
     }
 }
 
@@ -85,9 +85,9 @@ void DataSet::read_header(ifstream & header) {
                 // cut the last character
                 it->erase(--it->end(), it->end());
                 if (identifier_map.insert(
-                            pair<pair<int,string>, int>(
-                                pair<int, string>(current_attribute, Utils::trim(*it)),
-                                current_identifier)
+                            pair<int, pair<int,string> >(
+                                current_identifier,
+                                pair<int, string>(current_attribute, Utils::trim(*it)))
                             ).second) {
                     current_identifier++;
                 }
@@ -100,9 +100,9 @@ void DataSet::read_header(ifstream & header) {
             vector<string>::iterator it;
             for (it=tokens.begin(); it != tokens.end(); ++it) {
                 if (identifier_map.insert(
-                            pair<pair<int,string>, int>(
-                                pair<int, string>(lines.size() - 1, Utils::trim(*it)),
-                                current_identifier)
+                            pair<int ,pair<int,string> >(
+                                current_attribute,
+                                pair<int, string>(lines.size() - 1, Utils::trim(*it)))
                             ).second) {
                     current_identifier++;
                 }
@@ -121,11 +121,11 @@ void DataSet::read_data(ifstream & input_file) {
         vector<int> attributes;
         for (int i = 0; i < tokens.size(); ++i) {
             pair<int,string> element(i, Utils::trim(tokens[i]));
-            if (identifier_map.count(element) == 0) {
+            if (remap(element) == -1) {
                 attributes.push_back(-1);
             }
             else {
-                attributes.push_back(identifier_map[element]);
+                attributes.push_back(remap(element));
             }
         }
         transactions.push_back(attributes);
@@ -144,10 +144,10 @@ void DataSet::read_data_and_create_header(ifstream & input_file) {
             }
             else {
                 pair<int,string> element(i, Utils::trim(tokens[i]));
-                if (identifier_map.insert(pair<pair<int, string>, int>(element, current_id)).second) {
+                if (identifier_map.insert(pair<int, pair<int, string> >(current_id, element)).second) {
                     current_id++;
                 }
-                attributes.push_back(identifier_map[element]);
+                attributes.push_back(remap(element));
             }
         }
         transactions.push_back(attributes);
@@ -183,10 +183,10 @@ vector<int> DataSet::get_tids(vector<int> identifiers) const {
 
 vector<int> DataSet::get_identifiers(int class_id) const {
     vector<int> identifiers;
-    map<pair<int,string>, int>::const_iterator it;
+    map<int, pair<int,string> >::const_iterator it;
     for (it=identifier_map.begin(); it != identifier_map.end(); ++it) {
-        if (it->first.first != class_id) {
-            identifiers.push_back(it->second);
+        if (it->second.first != class_id) {
+            identifiers.push_back(it->first);
         }
     }
     sort(identifiers.begin(), identifiers.end());
@@ -198,12 +198,12 @@ vector<int> DataSet::get_transaction(int id) const {
 }
 
 
-pair<int, string> DataSet::remap(int id) const {
-    map<pair<int,string>, int>::const_iterator it;
+int DataSet::remap(pair<int, string> element) const {
+    map<int, pair<int,string> >::const_iterator it;
     for (it=identifier_map.begin(); it!=identifier_map.end(); ++it) {
-        if (it->second == id) return it->first;
+        if (it->second == element) return it->first;
     }
-    return pair<int, string>(-1, "Unknown");
+    return -1;
 }
 
 struct ascending_struct {
@@ -221,11 +221,11 @@ struct descending_struct {
 void DataSet::to_sorted(Order order) {
     vector<pair<int, int> > supports;
 
-    map<pair<int,string>, int>::iterator it;
+    map<int, pair<int,string> >::iterator it;
     for (it=identifier_map.begin(); it != identifier_map.end(); ++it) {
         vector<int> ids;
-        ids.push_back(it->second);
-        supports.push_back(pair<int, int>(it->second, get_tids(ids).size()));
+        ids.push_back(it->first);
+        supports.push_back(pair<int, int>(it->first, get_tids(ids).size()));
     }
 
     if (order == ASCENDING) {
@@ -235,16 +235,15 @@ void DataSet::to_sorted(Order order) {
         sort(supports.begin(), supports.end(), descending_comparator);
     }
 
-    cout << "ORDER" <<endl;
     int new_identifier = 0;
     vector<pair<int,int> >::iterator ii;
-    map<pair<int,string>,int> old_identifier_map(identifier_map);
+    map<int, pair<int,string> > old_identifier_map(identifier_map);
     for (ii=supports.begin(); ii != supports.end(); ++ii) {
         cout<< ii->first << " " << ii->second << endl;
-        map<pair<int,string>, int>::iterator tt;
+        map<int, pair<int,string> >::iterator tt;
         for (tt=old_identifier_map.begin(); tt!=old_identifier_map.end(); ++tt) {
-            if (ii->first == tt->second) {
-                identifier_map[tt->first] = new_identifier++;
+            if (ii->first == tt->first) {
+                identifier_map[new_identifier++] = tt->second;
                 break;   
             }
         }
@@ -254,10 +253,10 @@ void DataSet::to_sorted(Order order) {
 
 int DataSet::last_attribute() const {
     int max = -1;
-    map<pair<int,string>, int>::const_iterator it;
+    map<int, pair<int,string> >::const_iterator it;
     for (it=identifier_map.begin(); it != identifier_map.end(); ++it) {
-        if (it->first.first > max) {
-            max = it->first.first;
+        if (it->second.first > max) {
+            max = it->second.first;
         }
     }
     return max;
@@ -271,5 +270,14 @@ string DataSet::get_attribute(int id) {
 		stringstream ss;
 		ss << "Attribute " << id;
 		return ss.str();
+    }
+}
+
+pair<int, string> DataSet::get_id(int id) const {
+    if (identifier_map.count(id) > 0) {
+        return identifier_map.find(id)->second;
+    }
+    else {
+        return pair<int, string>(-1, "Unknown");
     }
 }
