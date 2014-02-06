@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <iterator>
+#include <deque>
 
 Charm::Charm(DataSet * d, int cls, int sup):
     data_set(d),
@@ -17,7 +18,6 @@ Charm::Charm(DataSet * d, int sup):
 }
 
 Charm::~Charm() {
-    delete graph;
     delete data_set;
 }
 
@@ -27,14 +27,75 @@ vector<ISet*> Charm::get_close_sets() {
     graph->root = create_node(vector<int>());
 
     vector<int> ids = data_set->get_identifiers(class_identifier);
+    deque<Node*> queue;
     vector<int>::iterator it;
     for (it=ids.begin(); it!=ids.end(); ++it) {
         vector<int> items;
         items.push_back(*it);
-        graph->add_node(create_node(items), graph->root);
+        Node * node = create_node(items);
+        graph->add_node(node, graph->root);
     }
-    hashes.insert(graph->root->set);
-    extend(graph->root);
+
+    queue.push_back(graph->root);
+    while (!queue.empty()) {
+        Node* parent = queue.front();
+        queue.pop_front();
+
+        vector<Node*>::iterator it;
+        for (it=parent->children.begin(); it!=parent->children.end(); ++it) {
+            if ((*it)->set->support() < min_sup) continue;
+            vector<Node*>::iterator j;
+            vector<Node*> to_delete;
+            for (j=it; j!=parent->children.end(); ++j) {
+                if ((*j)->set->support() < min_sup) continue;
+                if (it == j) continue;
+                vector<int> items;
+                items.reserve((*it)->set->identifiers.size() + (*j)->set->identifiers.size());
+                set_union((*it)->set->identifiers.begin(),
+                        (*it)->set->identifiers.end(),
+                        (*j)->set->identifiers.begin(),
+                        (*j)->set->identifiers.end(),
+                        back_inserter(items));
+
+                vector<int> tids;
+                tids.reserve((*it)->set->transactions.size() + (*j)->set->transactions.size());
+                set_intersection((*it)->set->transactions.begin(),
+                        (*it)->set->transactions.end(),
+                        (*j)->set->transactions.begin(),
+                        (*j)->set->transactions.end(),
+                        back_inserter(tids));
+
+                if (tids.size() >= min_sup) {
+                    Set * set = new Set(items, tids);
+                    Node * candidate = create_node(set);
+
+                    if (candidate != NULL) {
+                        Node * d = check_property(*it, *j, candidate);
+                        if (d != NULL) {
+                            to_delete.push_back(d);
+                        }
+                    }
+                }
+            }
+
+            vector<Node*>::iterator deleter;
+            for (deleter=to_delete.begin(); deleter!=to_delete.end(); ++deleter) {
+                graph->delete_node(*deleter);
+            }
+
+            hashes.insert((*it)->set);
+
+            if (!(*it)->children.empty()) {
+                queue.push_front(*it);
+            }
+
+        }
+
+        hashes.insert(parent->set);
+        parent->free();
+    }
+    //extend(graph->root);
+    delete graph;
     return hashes.content();
 }
 
@@ -71,6 +132,7 @@ Node* Charm::create_node(Set * set) {
 }
 
 void Charm::extend(Node * parent) {
+    return;
     vector<Node*>::iterator it;
     for (it=parent->children.begin(); it!=parent->children.end(); ++it) {
         if ((*it)->set->support() < min_sup) continue;

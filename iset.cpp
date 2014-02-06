@@ -11,9 +11,13 @@ ISet::ISet(const Set & set) {
 }
 
 bool ISet::is_subsumed(const ISet& other) const {
-	vector<int> temporary;
-	set_difference(other.identifiers.begin(), other.identifiers.end(), identifiers.begin(), identifiers.end(), back_inserter(temporary));
-	return temporary.empty();
+    vector<int>::const_iterator at;
+    for (at=other.identifiers.begin(); at!=other.identifiers.end(); ++at) {
+        if (find(identifiers.begin(), identifiers.end(), *at)==identifiers.end()) {
+            return false;       
+        }
+    }
+    return true;
 }
 
 bool ISet::operator==(const ISet& other) {

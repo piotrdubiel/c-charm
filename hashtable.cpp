@@ -6,13 +6,7 @@ void HashTable::insert(Set * n) {
     for (it=n->transactions.begin(); it != n->transactions.end(); ++it) {
         hash += *it + 1;
     }
-#ifdef DEBUG
-    cout << "Sum: " << hash << endl;
-#endif
     hash %= MOD;
-#ifdef DEBUG
-    cout << "Hash: " << hash << endl;
-#endif
 
     ISet * candidate = new ISet(*n);
     list<ISet *> addition;
@@ -24,17 +18,11 @@ void HashTable::insert(Set * n) {
         for (lit=ret.first->second.begin(); lit!=ret.first->second.end(); ++lit) {
             if (candidate->support() == (*lit)->support() && candidate->is_subsumed(**lit)) {
                 can_add = false;
-#ifdef DEBUG
-                cout << "Not added" << endl;
-#endif
                 break;
             }
         }
 
         if (can_add) {
-#ifdef DEBUG
-            cout << "Added" << endl;
-#endif
             ret.first->second.push_back(candidate);
         }
     }
