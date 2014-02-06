@@ -19,7 +19,6 @@ void usage();
 
 // TODO
 // - delete tidsets after use
-// - add ordering of identifiers
 
 int main(int argc, char* argv[]) {
     char* data_filename = NULL;
@@ -130,24 +129,6 @@ int main(int argc, char* argv[]) {
     ofstream csv_output(string(output_filename).append(".csv").c_str());
 	CsvWriter::write(csv_output, rules, data);
     csv_output.close();
-    return 4;
-
-    vector<ISet*>::iterator it;
-    for (it=sets.begin(); it != sets.end(); ++it) {
-        vector<int>::iterator i;
-        //if ((*it)->single_class) {
-        for (i=(*it)->identifiers.begin(); i!=(*it)->identifiers.end(); ++i) {
-            cout << data->remap(*i).second << " ";
-        }
-        //cout << "\t\t\tSingle class: " << (*it)->single_class << "\t   Class: " << data->remap((*it)->first_class_id).second << endl;
-        cout <<  "\t\t Class: "<< (*it)->first_class_id<< " " << data->remap((*it)->first_class_id).second << " single: " << (*it)->single_class << " support: " << (*it)->support() <<  endl;
-        //delete *it;
-        //}
-        //
-        if ((*it)->single_class) {
-        }
-    }
-
 
     delete charm;
 

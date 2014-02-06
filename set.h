@@ -16,9 +16,8 @@ public:
     Set(vector<int>, vector<int>);
     Set(const Set&);
 
-	bool is_subset_of(const Set&);
+	bool is_subset_of(const Set&) const;
 
-    bool is_subsumed(const Set&);
 	bool operator==(const Set&);
 
     int support() const;

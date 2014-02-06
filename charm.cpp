@@ -41,29 +41,8 @@ vector<ISet*> Charm::get_close_sets() {
 
 Node* Charm::create_node(vector<int> items) {
     vector<int> tids = data_set->get_tids(items);
-    if (tids.size() >= min_sup) {
-        Set* set = new Set(items, tids);
-        Node* node = new Node(set);
-
-        if (tids.size() > 0) {
-            vector<int>::iterator it;
-            int first_class = data_set->get_transaction(tids[0])[class_identifier];
-            bool single_class = true;
-            for (it=++tids.begin(); it!=tids.end(); ++it) {
-                vector<int> transaction = data_set->get_transaction(*it);
-                if (transaction[class_identifier] != first_class) {
-                    single_class = false;
-                    break;
-                }
-            }
-            node->set->first_class_id = first_class;
-            node->set->single_class = single_class;
-        }
-        return node;
-    }
-    else {
-        return NULL;
-    }
+    Set* set = new Set(items, tids);
+    return create_node(set);
 }
 
 Node* Charm::create_node(Set * set) {
