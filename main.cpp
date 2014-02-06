@@ -117,6 +117,7 @@ int main(int argc, char* argv[]) {
         charm = new Charm(data, min_sup);
     }
 
+    data->print_identifiers();
     vector<ISet*> sets = charm->get_close_sets();
 
     RuleBuilder builder(data);

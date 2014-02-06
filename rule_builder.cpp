@@ -26,7 +26,6 @@ map<int, list<Rule> > RuleBuilder::build(vector<ISet*> sets) {
 		pair<int, string> decision_mapped = data_set->get_id(decision);
 		Rule rule(*it, pair<int,string>(decision_mapped.first, data_set->get_attribute(decision_mapped.first)), decision_mapped.second);
 
-
         vector<int>::iterator id;
         for (id=identifiers.begin(); id!=identifiers.end(); ++id) {
             pair<int, string> remapped = data_set->get_id(*id);

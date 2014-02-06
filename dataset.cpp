@@ -144,8 +144,10 @@ void DataSet::read_data_and_create_header(ifstream & input_file) {
             }
             else {
                 pair<int,string> element(i, Utils::trim(tokens[i]));
-                if (identifier_map.insert(pair<int, pair<int, string> >(current_id, element)).second) {
-                    current_id++;
+                // TODO
+                if () {
+                    identifier_map.insert(pair<int, pair<int, string> >(current_id, element)).second
+                        current_id++;
                 }
                 attributes.push_back(remap(element));
             }
