@@ -1,0 +1,78 @@
+====================
+class: e
+--------------------
+cap-color(g), odor(n), 
+cap-shape(x), odor(n), stalk-surface-below-ring(s), 
+cap-color(n), gill-size(b), stalk-surface-above-ring(s), 
+cap-color(n), odor(n), stalk-surface-above-ring(s), 
+cap-color(n), gill-size(b), odor(n), 
+bruises?(f), gill-size(b), odor(n), 
+cap-color(n), odor(n), stalk-surface-below-ring(s), 
+cap-shape(x), odor(n), stalk-surface-above-ring(s), 
+cap-shape(x), gill-size(b), odor(n), 
+gill-size(b), odor(n), ring-number(o), veil-type(p)
+cap-color(n), gill-size(b), ring-number(o), veil-type(p)
+cap-surface(f), gill-attachment(f), gill-size(b), odor(n), 
+gill-size(b), ring-number(o), spore-print-color(n), veil-type(p)
+cap-surface(f), gill-attachment(f), gill-size(b), stalk-surface-below-ring(s), 
+odor(n), ring-number(o), spore-print-color(n), veil-type(p)
+cap-surface(f), gill-attachment(f), odor(n), stalk-surface-below-ring(s), 
+cap-shape(x), odor(n), ring-type(p), veil-type(p)
+cap-surface(f), gill-attachment(f), gill-size(b), stalk-surface-above-ring(s), 
+cap-surface(f), gill-attachment(f), odor(n), stalk-surface-above-ring(s), 
+cap-surface(f), gill-attachment(f), stalk-shape(t), stalk-surface-above-ring(s), 
+cap-surface(f), gill-attachment(f), stalk-shape(t), stalk-surface-below-ring(s), 
+odor(n), population(v), ring-number(o), stalk-surface-below-ring(s), veil-type(p)
+odor(n), population(v), ring-number(o), ring-type(p), veil-type(p)
+bruises?(f), gill-attachment(f), odor(n), stalk-color-above-ring(w), stalk-color-below-ring(w), 
+odor(n), population(v), ring-number(o), stalk-surface-above-ring(s), veil-type(p)
+gill-attachment(f), gill-size(b), odor(n), stalk-color-below-ring(w), stalk-shape(t), 
+gill-attachment(f), gill-size(b), odor(n), stalk-color-above-ring(w), stalk-shape(t), 
+gill-spacing(c), odor(n), ring-number(o), stalk-surface-above-ring(s), veil-type(p)
+gill-attachment(f), gill-size(b), odor(n), stalk-shape(t), stalk-surface-below-ring(s), 
+gill-attachment(f), gill-size(b), odor(n), stalk-shape(t), stalk-surface-above-ring(s), 
+gill-size(b), habitat(d), ring-type(p), veil-color(w), veil-type(p)
+gill-spacing(c), odor(n), ring-number(o), ring-type(p), veil-type(p)
+cap-surface(f), gill-attachment(f), gill-size(b), ring-type(p), veil-color(w), veil-type(p)
+cap-surface(f), gill-attachment(f), odor(n), ring-type(p), veil-color(w), veil-type(p)
+gill-attachment(f), gill-size(b), ring-number(o), spore-print-color(k), veil-color(w), veil-type(p)
+gill-attachment(f), ring-number(o), spore-print-color(n), stalk-shape(t), veil-color(w), veil-type(p)
+bruises?(f), gill-attachment(f), gill-spacing(w), odor(n), veil-color(w), veil-type(p)
+gill-attachment(f), gill-spacing(c), population(y), stalk-surface-above-ring(s), veil-color(w), veil-type(p)
+gill-attachment(f), gill-spacing(c), population(y), ring-type(p), veil-color(w), veil-type(p)
+gill-attachment(f), odor(n), ring-number(o), spore-print-color(k), veil-color(w), veil-type(p)
+cap-surface(f), gill-attachment(f), ring-number(o), stalk-shape(t), veil-color(w), veil-type(p)
+gill-attachment(f), ring-number(o), spore-print-color(k), stalk-shape(t), veil-color(w), veil-type(p)
+bruises?(f), gill-attachment(f), gill-size(b), habitat(g), stalk-color-below-ring(w), veil-color(w), veil-type(p)
+gill-attachment(f), gill-spacing(w), habitat(g), stalk-color-above-ring(w), stalk-color-below-ring(w), veil-color(w), veil-type(p)
+gill-attachment(f), habitat(d), ring-number(o), ring-type(p), stalk-shape(t), veil-color(w), veil-type(p)
+gill-attachment(f), gill-spacing(c), habitat(d), odor(n), ring-type(p), veil-color(w), veil-type(p)
+cap-surface(y), gill-attachment(f), gill-size(b), gill-spacing(c), ring-number(o), ring-type(p), veil-color(w), veil-type(p)
+
+====================
+class: p
+--------------------
+bruises?(f), gill-attachment(f), gill-spacing(c), stalk-surface-above-ring(k), 
+bruises?(f), cap-surface(y), gill-spacing(c), stalk-surface-above-ring(k), 
+bruises?(f), gill-spacing(c), stalk-surface-above-ring(k), veil-color(w), veil-type(p)
+bruises?(f), gill-attachment(f), gill-spacing(c), odor(f), stalk-surface-below-ring(k), 
+bruises?(f), ring-number(o), stalk-surface-above-ring(k), veil-color(w), veil-type(p)
+gill-attachment(f), gill-size(b), gill-spacing(c), odor(f), stalk-shape(e), 
+cap-surface(s), gill-spacing(c), population(v), ring-number(o), veil-color(w), veil-type(p)
+bruises?(f), gill-size(b), ring-number(o), stalk-shape(e), veil-color(w), veil-type(p)
+population(v), ring-number(o), spore-print-color(w), stalk-root(?), veil-color(w), veil-type(p)
+gill-spacing(c), population(v), ring-number(o), spore-print-color(w), veil-color(w), veil-type(p)
+gill-attachment(f), gill-spacing(c), odor(f), ring-number(o), veil-color(w), veil-type(p)
+bruises?(f), gill-attachment(f), ring-number(o), stalk-surface-below-ring(k), veil-color(w), veil-type(p)
+bruises?(f), gill-attachment(f), gill-spacing(c), ring-number(o), stalk-color-below-ring(p), veil-color(w), veil-type(p)
+gill-attachment(f), gill-spacing(c), ring-number(o), stalk-root(b), stalk-shape(e), veil-color(w), veil-type(p)
+gill-attachment(f), gill-size(b), ring-number(o), stalk-root(b), stalk-shape(e), veil-color(w), veil-type(p)
+gill-attachment(f), gill-size(n), ring-number(o), spore-print-color(w), stalk-shape(t), veil-color(w), veil-type(p)
+gill-attachment(f), population(v), ring-number(o), ring-type(e), stalk-shape(t), veil-color(w), veil-type(p)
+cap-surface(s), gill-attachment(f), gill-spacing(c), ring-number(o), stalk-shape(t), veil-color(w), veil-type(p)
+bruises?(f), gill-attachment(f), gill-spacing(c), habitat(p), ring-number(o), veil-color(w), veil-type(p)
+bruises?(f), gill-attachment(f), gill-spacing(c), ring-number(o), stalk-color-above-ring(p), veil-color(w), veil-type(p)
+gill-attachment(f), gill-spacing(c), ring-number(o), spore-print-color(h), stalk-root(b), veil-color(w), veil-type(p)
+cap-surface(s), gill-attachment(f), gill-size(n), gill-spacing(c), ring-number(o), veil-color(w), veil-type(p)
+gill-attachment(f), gill-size(b), gill-spacing(c), spore-print-color(h), stalk-root(b), stalk-shape(e), veil-color(w), veil-type(p)
+

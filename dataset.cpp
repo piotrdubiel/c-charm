@@ -235,12 +235,10 @@ void DataSet::to_sorted(Order order) {
         sort(supports.begin(), supports.end(), descending_comparator);
     }
 
-    cout << "ORDER" <<endl;
     int new_identifier = 0;
     vector<pair<int,int> >::iterator ii;
     map<pair<int,string>,int> old_identifier_map(identifier_map);
     for (ii=supports.begin(); ii != supports.end(); ++ii) {
-        cout<< ii->first << " " << ii->second << endl;
         map<pair<int,string>, int>::iterator tt;
         for (tt=old_identifier_map.begin(); tt!=old_identifier_map.end(); ++tt) {
             if (ii->first == tt->second) {

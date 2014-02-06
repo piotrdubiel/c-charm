@@ -1,0 +1,10 @@
+buying;doors;lug_boot;maint;persons;safety;decision
+;;;;2;;unacc
+;;;;;low;unacc
+vhigh;;;vhigh;;;unacc
+vhigh;;;high;;;unacc
+high;;;vhigh;;;unacc
+;;small;vhigh;;med;unacc
+high;;small;;;med;unacc
+;2;small;;more;;unacc
+vhigh;;small;;;med;unacc
