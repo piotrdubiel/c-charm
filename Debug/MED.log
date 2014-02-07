@@ -1,0 +1,20 @@
+﻿Build started 2014-02-07 19:18:44.
+     1>Project "C:\Users\piotrek\Documents\workspace\c-charm\MED.vcxproj" on node 2 (build target(s)).
+     1>InitializeBuildStatus:
+         Creating "Debug\MED.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         All outputs are up-to-date.
+       ManifestResourceCompile:
+         All outputs are up-to-date.
+       Link:
+         All outputs are up-to-date.
+       Manifest:
+         All outputs are up-to-date.
+       FinalizeBuildStatus:
+         Deleting file "Debug\MED.unsuccessfulbuild".
+         Touching "Debug\MED.lastbuildstate".
+     1>Done Building Project "C:\Users\piotrek\Documents\workspace\c-charm\MED.vcxproj" (build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:00.06

@@ -65,7 +65,7 @@ vector<ISet*> Charm::get_close_sets() {
                         (*j)->set->transactions.end(),
                         back_inserter(tids));
 
-                if (tids.size() >= min_sup) {
+                if (((int)tids.size()) >= min_sup) {
                     Set * set = new Set(items, tids);
                     Node * candidate = create_node(set);
 

@@ -84,7 +84,7 @@ int main(int argc, char* argv[]) {
         cerr << "Header file doesn't exist: " << header_filename << endl;
         return 4;
     }
-
+	cout << "Loading data...";
     clock_t start = clock();
     DataSet* data;
     if (header_filename) {
@@ -95,8 +95,11 @@ int main(int argc, char* argv[]) {
     else {
         ifstream data_file(data_filename);
         data = new DataSet(data_file, order);
-    }
-
+    }	
+    cout << "     \t" << ((float) (clock() - start)) / CLOCKS_PER_SEC << "s" << endl;
+	
+	cout << "Finding close sets...";
+	start = clock();
     Charm * charm;
     if (class_attribute != -1) {
         charm = new Charm(data, class_attribute, min_sup);
@@ -106,20 +109,20 @@ int main(int argc, char* argv[]) {
     }
 
     vector<ISet*> sets = charm->get_close_sets();
+	cout << "\t" << ((float) (clock() - start)) / CLOCKS_PER_SEC << "s" << endl;
 
+	cout << "Finding rules...";
     RuleBuilder builder(data);
-
-    map<int, list<Rule> > rules = builder.build(sets);
-    
+    map<int, list<Rule> > rules = builder.build(sets);   
     ofstream text_output(string(output_filename).append(".txt").c_str());
 	TextWriter::write(text_output, rules);
     text_output.close();
     ofstream csv_output(string(output_filename).append(".csv").c_str());
 	CsvWriter::write(csv_output, rules);
     csv_output.close();
+	cout << "\t" << ((float) (clock() - start)) / CLOCKS_PER_SEC << "s" << endl;
 
     delete charm;
-    cout << ((float) (clock() - start)) / CLOCKS_PER_SEC << "s" << endl;
 
     return 0;
 }

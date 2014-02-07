@@ -1,6 +1,0 @@
-====================
-Attribute 6: unacc
---------------------
-Attribute 5(low)
-Attribute 3(2), 
-
