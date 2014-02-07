@@ -1,6 +1,6 @@
-buying;doors;lug_boot;maint;persons;safety;decision
-;;;;2;;unacc
+Attribute 0;Attribute 1;Attribute 2;Attribute 3;Attribute 4;Attribute 5;Attribute 6
+;;;2;;;unacc
 ;;;;;low;unacc
-vhigh;;;vhigh;;;unacc
-vhigh;;;high;;;unacc
-high;;;vhigh;;;unacc
+vhigh;vhigh;;;;;unacc
+vhigh;high;;;;;unacc
+high;vhigh;;;;;unacc

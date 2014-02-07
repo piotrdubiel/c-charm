@@ -1,9 +1,9 @@
 ====================
-decision: unacc
+Attribute 6: unacc
 --------------------
-persons(2), 
-safety(low)
-buying(vhigh), maint(vhigh), 
-buying(vhigh), maint(high), 
-buying(high), maint(vhigh), 
+Attribute 3(2), 
+Attribute 5(low)
+Attribute 0(vhigh), Attribute 1(vhigh), 
+Attribute 0(vhigh), Attribute 1(high), 
+Attribute 0(high), Attribute 1(vhigh), 
 

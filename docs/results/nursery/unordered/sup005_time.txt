@@ -1,20 +1,4 @@
-
-real	0m6.520s
-user	0m6.444s
-sys	0m0.036s
-
-real	0m6.306s
-user	0m6.571s
-sys	0m0.035s
-
-real	0m6.527s
-user	0m6.444s
-sys	0m0.036s
-
-real	0m6.646s
-user	0m6.571s
-sys	0m0.037s
-
-real	0m6.521s
-user	0m6.445s
-sys	0m0.035s
+Minimum support: 5
+Loading data...     	0.437265s
+Finding close sets...	2.94925s
+Finding rules...	4.70504s

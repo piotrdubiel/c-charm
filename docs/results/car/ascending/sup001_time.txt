@@ -1,40 +1,4 @@
-
-real	0m0.575s
-user	0m0.557s
-sys	0m0.007s
-
-real	0m0.402s
-user	0m0.385s
-sys	0m0.006s
-
-real	0m0.353s
-user	0m0.345s
-sys	0m0.005s
-
-real	0m0.386s
-user	0m0.376s
-sys	0m0.006s
-
-real	0m0.407s
-user	0m0.394s
-sys	0m0.007s
-
-real	0m0.390s
-user	0m0.379s
-sys	0m0.006s
-
-real	0m0.389s
-user	0m0.381s
-sys	0m0.005s
-
-real	0m0.403s
-user	0m0.392s
-sys	0m0.005s
-
-real	0m0.394s
-user	0m0.382s
-sys	0m0.006s
-
-real	0m0.380s
-user	0m0.370s
-sys	0m0.005s
+Minimum support: 1
+Loading data...     	0.075406s
+Finding close sets...	0.143752s
+Finding rules...	0.395031s
