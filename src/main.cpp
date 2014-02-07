@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include <stdlib.h>
+#include <time.h>
 #include <string.h>
 #include "dataset.h"
 #include "charm.h"
@@ -84,8 +85,7 @@ int main(int argc, char* argv[]) {
         return 4;
     }
 
-    clock_t start = time(NULL);
-    cout << time(NULL) << endl;
+    clock_t start = clock();
     DataSet* data;
     if (header_filename) {
         ifstream header_file(header_filename);
@@ -119,7 +119,7 @@ int main(int argc, char* argv[]) {
     csv_output.close();
 
     delete charm;
-    cout << time(NULL) - start << endl;
+    cout << ((float) (clock() - start)) / CLOCKS_PER_SEC << "s" << endl;
 
     return 0;
 }
