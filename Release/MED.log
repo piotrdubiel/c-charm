@@ -1,0 +1,71 @@
+﻿Build started 2014-02-07 19:58:34.
+     1>Project "C:\Users\piotrek\Documents\workspace\c-charm\MED.vcxproj" on node 2 (build target(s)).
+     1>InitializeBuildStatus:
+         Creating "Release\MED.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oy- /D WIN32 /D NDEBUG /D _CONSOLE /Gm- /EHsc /MD /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt src\charm.cpp src\csv_writer.cpp src\dataset.cpp src\graph.cpp src\hashtable.cpp src\iset.cpp src\main.cpp src\rule.cpp src\rule_builder.cpp src\set.cpp src\text_writer.cpp src\utils.cpp src\writer.cpp
+         charm.cpp
+         csv_writer.cpp
+         dataset.cpp
+     1>src\dataset.cpp(122): warning C4018: '<' : signed/unsigned mismatch
+     1>src\dataset.cpp(141): warning C4018: '<' : signed/unsigned mismatch
+     1>src\dataset.cpp(170): warning C4018: '<' : signed/unsigned mismatch
+         graph.cpp
+         hashtable.cpp
+         iset.cpp
+         main.cpp
+         rule.cpp
+         rule_builder.cpp
+         set.cpp
+         text_writer.cpp
+         utils.cpp
+     1>src\utils.cpp(34): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\stdio.h(234) : see declaration of 'fopen'
+         writer.cpp
+         Generating Code...
+       ManifestResourceCompile:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\rc.exe /nologo /fo"Release\MED.exe.embed.manifest.res" Release\MED_manifest.rc 
+       Link:
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\piotrek\Documents\workspace\c-charm\Release\MED.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Release\MED.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\piotrek\Documents\workspace\c-charm\Release\MED.pdb" /SUBSYSTEM:CONSOLE /OPT:REF /OPT:ICF /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\piotrek\Documents\workspace\c-charm\Release\MED.lib" /MACHINE:X86 Release\MED.exe.embed.manifest.res
+         Release\charm.obj
+         Release\csv_writer.obj
+         Release\dataset.obj
+         Release\graph.obj
+         Release\hashtable.obj
+         Release\iset.obj
+         Release\main.obj
+         Release\rule.obj
+         Release\rule_builder.obj
+         Release\set.obj
+         Release\text_writer.obj
+         Release\utils.obj
+         Release\writer.obj
+     1>LINK : warning LNK4075: ignoring '/INCREMENTAL' due to '/OPT:ICF' specification
+       Manifest:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /out:"Release\MED.exe.embed.manifest" /manifest Release\MED.exe.intermediate.manifest
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\rc.exe /nologo /fo"Release\MED.exe.embed.manifest.res" Release\MED_manifest.rc 
+       LinkEmbedManifest:
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\piotrek\Documents\workspace\c-charm\Release\MED.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Release\MED.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\piotrek\Documents\workspace\c-charm\Release\MED.pdb" /SUBSYSTEM:CONSOLE /OPT:REF /OPT:ICF /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\piotrek\Documents\workspace\c-charm\Release\MED.lib" /MACHINE:X86 Release\MED.exe.embed.manifest.res
+         Release\charm.obj
+         Release\csv_writer.obj
+         Release\dataset.obj
+         Release\graph.obj
+         Release\hashtable.obj
+         Release\iset.obj
+         Release\main.obj
+         Release\rule.obj
+         Release\rule_builder.obj
+         Release\set.obj
+         Release\text_writer.obj
+         Release\utils.obj
+         Release\writer.obj
+     1>LINK : warning LNK4075: ignoring '/INCREMENTAL' due to '/OPT:ICF' specification
+         MED.vcxproj -> C:\Users\piotrek\Documents\workspace\c-charm\Release\MED.exe
+       FinalizeBuildStatus:
+         Deleting file "Release\MED.unsuccessfulbuild".
+         Touching "Release\MED.lastbuildstate".
+     1>Done Building Project "C:\Users\piotrek\Documents\workspace\c-charm\MED.vcxproj" (build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:10.21
