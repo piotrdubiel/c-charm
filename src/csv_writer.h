@@ -12,7 +12,7 @@
 
 class CsvWriter {
 public:
-    static void write(ostream &, map<int, list<Rule> >, DataSet*);
+    static void write(ostream &, map<int, list<Rule> >);
 };
 
 #endif

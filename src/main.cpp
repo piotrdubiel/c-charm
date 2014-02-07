@@ -56,6 +56,8 @@ int main(int argc, char* argv[]) {
         }
         else if (strcmp(argv[i], "-s")==0 || strcmp(argv[i], "--support")==0) {
             min_sup = atoi(argv[++i]);
+            cout << "Minimum support: " << min_sup << endl;
+
         }
         else if (strcmp(argv[i], "-c")==0 || strcmp(argv[i], "--class")==0) {
             class_attribute = atoi(argv[++i]);
@@ -82,6 +84,8 @@ int main(int argc, char* argv[]) {
         return 4;
     }
 
+    clock_t start = time(NULL);
+    cout << time(NULL) << endl;
     DataSet* data;
     if (header_filename) {
         ifstream header_file(header_filename);
@@ -111,10 +115,11 @@ int main(int argc, char* argv[]) {
 	TextWriter::write(text_output, rules);
     text_output.close();
     ofstream csv_output(string(output_filename).append(".csv").c_str());
-	CsvWriter::write(csv_output, rules, data);
+	CsvWriter::write(csv_output, rules);
     csv_output.close();
 
     delete charm;
+    cout << time(NULL) - start << endl;
 
     return 0;
 }

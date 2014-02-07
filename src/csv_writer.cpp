@@ -1,6 +1,6 @@
 #include "csv_writer.h"
 
-void CsvWriter::write(ostream & output, map<int, list<Rule> > rules, DataSet* data) {
+void CsvWriter::write(ostream & output, map<int, list<Rule> > rules) {
     // write header
 	map<string, string>::iterator at;
 	for (at=rules.begin()->second.front().attributes.begin(); at!=rules.begin()->second.front().attributes.end(); ++at) {
